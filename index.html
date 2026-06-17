@@ -789,3 +789,993 @@
 
     .contact-box a:hover,
     .contact-box button:hover { color: var(--cyan); }
+
+    footer {
+      padding: 32px 0;
+      color: var(--muted-2);
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,.09);
+      font-size: .9rem;
+    }
+
+    .copy-note {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 9999;
+      transform: translateY(18px) scale(.96);
+      opacity: 0;
+      pointer-events: none;
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: #061018;
+      background: var(--green);
+      font-weight: 950;
+      box-shadow: 0 18px 44px rgba(0,0,0,.25);
+      transition: 360ms var(--spring);
+    }
+
+    .copy-note.show { opacity: 1; transform: translateY(0) scale(1); }
+
+    .reveal {
+      opacity: 0;
+      transform: translate3d(0, 18px, 0) scale(.992);
+      transition: opacity 1050ms var(--spring), transform 1050ms var(--spring);
+      transition-delay: var(--delay, 0ms);
+      will-change: opacity, transform;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    .hero .reveal.visible .kicker { animation: softLift 760ms var(--spring) both; }
+    .hero .reveal.visible h1 { animation: softLift 900ms var(--spring) 70ms both; }
+    .hero .reveal.visible .hero-text { animation: softLift 900ms var(--spring) 140ms both; }
+    .hero .reveal.visible .actions { animation: softLift 900ms var(--spring) 210ms both; }
+    .hero .reveal.visible .role-pills { animation: softLift 900ms var(--spring) 280ms both; }
+
+    @keyframes softLift {
+      from { opacity: 0; transform: translate3d(0, 12px, 0); }
+      to { opacity: 1; transform: translate3d(0, 0, 0); }
+    }
+
+    @media (max-width: 1060px) {
+      .impact-grid { grid-template-columns: repeat(3, 1fr); }
+      .expertise-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-grid, .section-head, .credentials, .contact-panel { grid-template-columns: 1fr; }
+      .hero { min-height: auto; }
+    }
+
+    @media (max-width: 760px) {
+      .container { width: min(100% - 32px, var(--max)); }
+      .menu-btn { display: grid; place-items: center; }
+      .nav-links {
+        position: absolute;
+        top: 72px;
+        left: 16px;
+        right: 16px;
+        display: grid;
+        gap: 4px;
+        border-radius: 22px;
+        padding: 10px;
+        background: rgba(5,7,13,.92);
+        backdrop-filter: blur(24px) saturate(150%);
+        -webkit-backdrop-filter: blur(24px) saturate(150%);
+        transform: translateY(-12px) scale(.98);
+        opacity: 0;
+        pointer-events: none;
+        transition: 320ms var(--spring);
+      }
+      .nav-links.open { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto; }
+      .nav-links a { padding: 12px; }
+      .hero { padding-top: 54px; }
+      h1 { letter-spacing: -.065em; }
+      .impact-grid, .expertise-grid, .proof-grid { grid-template-columns: 1fr; }
+      .role { grid-template-columns: 1fr; }
+      .role-time { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.12); padding-right: 0; padding-bottom: 14px; }
+      .actions { align-items: stretch; }
+      .btn { width: 100%; }
+      section { padding: 64px 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .001ms !important;
+      }
+      .spotlight, .ambient { display: none; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+
+    /* Cinematic scroll-motion upgrade: stronger but smooth Apple-style depth */
+    body::after {
+      animation: gridDrift 64s linear infinite;
+      transform: translate3d(0, var(--grid-y, 0px), 0);
+      will-change: transform, background-position;
+    }
+
+    section { perspective: 1300px; }
+
+    .section-motion > .container {
+      transform: translate3d(0, var(--section-y, 0px), 0) scale(var(--section-scale, 1));
+      opacity: var(--section-opacity, 1);
+      will-change: transform, opacity;
+      transition: transform 180ms linear, opacity 220ms var(--ease);
+    }
+
+    .scroll-motion:not(.reveal),
+    .reveal.visible.scroll-motion {
+      --scroll-x: 0px;
+      --scroll-y: 0px;
+      --scroll-scale: 1;
+      --scroll-opacity: 1;
+      --scroll-rx: 0deg;
+      --hover-y: 0px;
+      --hover-scale: 1;
+      opacity: var(--scroll-opacity, 1) !important;
+      transform: translate3d(var(--scroll-x), calc(var(--scroll-y) + var(--hover-y)), 0) rotateX(var(--scroll-rx)) scale(calc(var(--scroll-scale) * var(--hover-scale))) !important;
+      transform-origin: center center;
+      will-change: transform, opacity;
+      transition: transform 180ms linear, opacity 220ms var(--ease), border-color 520ms var(--ease), background 520ms var(--ease), box-shadow 520ms var(--ease);
+    }
+
+    .reveal:not(.visible).scroll-motion {
+      opacity: 0 !important;
+      transform: translate3d(var(--scroll-x, 0px), calc(26px + var(--scroll-y, 0px)), 0) scale(.985) !important;
+    }
+
+    .scroll-motion:hover {
+      --hover-y: -7px;
+      --hover-scale: 1.006;
+    }
+
+    .proof-card.scroll-motion,
+    .signal.scroll-motion {
+      transition: transform 180ms linear, opacity 220ms var(--ease), background 520ms var(--ease), border-color 520ms var(--ease);
+    }
+
+
+
+    /* Readability lock: keep contact and internal card text crisp during motion */
+    :root {
+      --muted: rgba(247, 251, 255, 0.86);
+      --muted-2: rgba(247, 251, 255, 0.76);
+    }
+
+    .hero-text,
+    .section-copy,
+    .metric span,
+    .card p,
+    .proof-card p,
+    .role p,
+    .signal span,
+    .contact-panel p,
+    .snapshot h2,
+    .contact-box small,
+    .contact-box a,
+    .contact-box button {
+      opacity: 1 !important;
+      filter: none !important;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
+
+    .hero-text,
+    .section-copy,
+    .metric span,
+    .card p,
+    .proof-card p,
+    .role p,
+    .signal span,
+    .contact-panel p {
+      color: rgba(247, 251, 255, 0.88) !important;
+    }
+
+    .contact-box small {
+      color: rgba(247, 251, 255, 0.82) !important;
+      letter-spacing: .16em;
+    }
+
+    .contact-box a,
+    .contact-box button {
+      color: #ffffff !important;
+      font-weight: 900 !important;
+      text-shadow: 0 0 18px rgba(255, 255, 255, 0.10);
+    }
+
+    .contact-box,
+    .contact-panel,
+    #contact .container,
+    #contact .reveal,
+    #contact .scroll-motion,
+    #contact .reveal.visible.scroll-motion {
+      opacity: 1 !important;
+      filter: none !important;
+    }
+
+    /* The contact card contains critical info, so do not rotate/scale it while scrolling. */
+    #contact .container,
+    #contact .contact-panel.scroll-motion,
+    #contact .contact-box.scroll-motion {
+      transform: translate3d(0, 0, 0) !important;
+    }
+
+    @media (max-width: 760px) {
+      .contact-box small {
+        color: rgba(247, 251, 255, 0.88) !important;
+      }
+
+      .contact-box a,
+      .contact-box button {
+        color: #ffffff !important;
+        font-weight: 950 !important;
+      }
+
+      #contact .container,
+      #contact .contact-panel,
+      #contact .contact-box,
+      #contact .scroll-motion {
+        transform: none !important;
+        opacity: 1 !important;
+        filter: none !important;
+      }
+    }
+
+
+    /* FINAL CRISP TEXT PASS: keep Apple polish, but remove text-softening transforms from content */
+    :root {
+      --muted: rgba(255, 255, 255, 0.91);
+      --muted-2: rgba(255, 255, 255, 0.80);
+    }
+
+    main,
+    section,
+    .container,
+    .section-head,
+    .glass,
+    .snapshot,
+    .signal,
+    .metric,
+    .card,
+    .proof-card,
+    .role,
+    .credential-card,
+    .contact-panel,
+    .contact-box {
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      filter: none !important;
+    }
+
+    /* Do not scale/rotate/fade text-bearing blocks while scrolling. This prevents the soft/blurred look. */
+    .section-motion > .container,
+    .scroll-motion,
+    .reveal.visible.scroll-motion,
+    .glass,
+    .snapshot,
+    .signal,
+    .metric,
+    .card,
+    .proof-card,
+    .role,
+    .credential-card,
+    .contact-panel,
+    .contact-box {
+      opacity: 1 !important;
+      transform: none !important;
+      will-change: auto !important;
+      backface-visibility: visible !important;
+    }
+
+    .reveal.visible {
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+      will-change: auto !important;
+    }
+
+    .hero-text,
+    .section-copy,
+    .metric span,
+    .card p,
+    .proof-card p,
+    .role p,
+    .signal span,
+    .contact-panel p,
+    footer {
+      color: rgba(255, 255, 255, 0.92) !important;
+      opacity: 1 !important;
+      filter: none !important;
+      text-shadow: none !important;
+    }
+
+    .brand,
+    .kicker,
+    .section-title,
+    .snapshot h2,
+    .signal strong,
+    .metric strong,
+    .card h3,
+    .proof-card h3,
+    .role h3,
+    .credential-card h3,
+    .contact-panel h2,
+    .contact-box a,
+    .contact-box button {
+      color: #ffffff !important;
+      opacity: 1 !important;
+      filter: none !important;
+      text-shadow: none !important;
+    }
+
+    .label,
+    .date,
+    .proof-card small,
+    .contact-box small {
+      opacity: 1 !important;
+      filter: none !important;
+      text-shadow: none !important;
+    }
+
+    .chip,
+    .pill,
+    .tag,
+    .credential-list span {
+      color: rgba(255, 255, 255, 0.88) !important;
+      opacity: 1 !important;
+      filter: none !important;
+    }
+
+    /* Keep interaction polished without moving text itself. */
+    .metric:hover,
+    .card:hover,
+    .role:hover,
+    .contact-box:hover,
+    .scroll-motion:hover {
+      transform: none !important;
+      border-color: rgba(255,255,255,.26) !important;
+      background: linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.065));
+      box-shadow: 0 28px 82px rgba(0, 0, 0, .34);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px) scale(1.006) !important;
+    }
+
+    @media (max-width: 760px) {
+      .section-motion > .container,
+      .scroll-motion,
+      .reveal.visible.scroll-motion,
+      .glass,
+      .snapshot,
+      .signal,
+      .metric,
+      .card,
+      .proof-card,
+      .role,
+      .credential-card,
+      .contact-panel,
+      .contact-box {
+        transform: none !important;
+        opacity: 1 !important;
+        filter: none !important;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="ambient" aria-hidden="true">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+  </div>
+  <div class="spotlight" aria-hidden="true"></div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <nav class="nav" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a class="brand" href="#home" aria-label="Sai Sumanth portfolio home">
+        <span class="brand-mark">SS</span>
+        <span>Sai Sumanth</span>
+      </a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Toggle menu" aria-expanded="false">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#impact">Impact</a></li>
+        <li><a href="#expertise">Expertise</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#credentials">Credentials</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <div class="kicker"><span class="pulse"></span> Sai Sumanth · CISA-Certified Cybersecurity GRC + Infrastructure Security</div>
+          <h1><span class="gradient-text">Cyber risk made clear, controlled, and business-ready.</span></h1>
+          <p class="hero-text">
+            I help regulated teams review <strong>vendor connectivity, PHI data flows, audit evidence, SIEM/DLP/PAM controls, and infrastructure-security gaps</strong> — then turn technical findings into decisions Security, Legal, Compliance, Procurement, and business teams can act on.
+          </p>
+
+          <div class="actions">
+            <a class="btn btn-primary" href="#contact">Contact Sai</a>
+            <a class="btn btn-secondary" href="#impact">View Impact</a>
+          </div>
+
+          <div class="role-pills" aria-label="Role focus areas">
+            <span class="pill">Cybersecurity GRC</span>
+            <span class="pill">Vendor Risk / TPRM</span>
+            <span class="pill">Infrastructure Controls</span>
+            <span class="pill">Network Security Validation</span>
+            <span class="pill">Audit Readiness</span>
+          </div>
+        </div>
+
+        <aside class="snapshot glass reveal" style="--delay: 110ms" aria-label="Professional snapshot">
+          <div class="snapshot-top">
+            <div>
+              <div class="label">Snapshot</div>
+              <h2>GRC depth with hands-on security operations context.</h2>
+            </div>
+          </div>
+
+          <div class="signal-grid">
+            <div class="signal">
+              <div class="signal-num">80+</div>
+              <div><strong>Healthcare vendors reviewed</strong><span>EHR, billing, telehealth, cloud, API/SFTP, and vendor-managed platforms.</span></div>
+            </div>
+            <div class="signal">
+              <div class="signal-num">22</div>
+              <div><strong>PHI integrations documented</strong><span>FHIR/HL7 flows, authentication, encryption, logging, and ownership boundaries.</span></div>
+            </div>
+            <div class="signal">
+              <div class="signal-num">200+</div>
+              <div><strong>SOC 2 controls validated</strong><span>Identity, access, data protection, and infrastructure-security evidence.</span></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="impact">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="label">Measured Impact</div>
+            <h2 class="section-title">Measured outcomes across risk, audit, and security operations.</h2>
+          </div>
+          <p class="section-copy">Focused on measurable outcomes across vendor risk, audit readiness, remediation tracking, privileged access reviews, and security control validation.</p>
+        </div>
+
+        <div class="impact-grid">
+          <article class="metric glass reveal"><strong>80+</strong><span>vendors assessed across healthcare platforms and production integrations.</span></article>
+          <article class="metric glass reveal" style="--delay: 70ms"><strong>4→2</strong><span>months reduction in average vendor assessment cycle time.</span></article>
+          <article class="metric glass reveal" style="--delay: 140ms"><strong>47→22</strong><span>days reduction in average remediation tracking timelines.</span></article>
+          <article class="metric glass reveal" style="--delay: 210ms"><strong>230+</strong><span>privileged role assignments reviewed for least-privilege alignment.</span></article>
+          <article class="metric glass reveal" style="--delay: 280ms"><strong>35%</strong><span>duplicate evidence work reduced through SOC 2 to ISO 27001 mapping.</span></article>
+          <article class="metric glass reveal" style="--delay: 350ms"><strong>30%</strong><span>faster alert response through Splunk dashboards and correlation rules.</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="expertise">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="label">Expertise</div>
+            <h2 class="section-title">Risk, controls, and technical validation in one security profile.</h2>
+          </div>
+          <p class="section-copy">Built for roles where GRC must connect with infrastructure, network security, audit evidence, and real production systems.</p>
+        </div>
+
+        <div class="expertise-grid">
+          <article class="card glass reveal">
+            <div class="icon">01</div>
+            <h3>Vendor Risk & GRC</h3>
+            <p>End-to-end third-party reviews covering inherent risk, residual risk, control validation, executive summaries, and remediation tracking.</p>
+            <div class="mini-stack"><span class="chip">VISO Trust</span><span class="chip">ServiceNow GRC</span><span class="chip">Archer</span><span class="chip">JIRA</span></div>
+          </article>
+
+          <article class="card glass reveal" style="--delay: 90ms">
+            <div class="icon">02</div>
+            <h3>Infrastructure & Network Controls</h3>
+            <p>Connectivity and control reviews for API/SFTP integrations, TLS/SSL, MFA, RBAC, log forwarding, DR readiness, and firewall-rule support.</p>
+            <div class="mini-stack"><span class="chip">TCP/IP</span><span class="chip">DNS/DHCP</span><span class="chip">VPN</span><span class="chip">Wireshark</span></div>
+          </article>
+
+          <article class="card glass reveal" style="--delay: 180ms">
+            <div class="icon">03</div>
+            <h3>SIEM, DLP & PAM Operations</h3>
+            <p>Security operations context across Splunk dashboards, DLP policy tuning, CyberArk PAM activities, alert triage, and evidence support.</p>
+            <div class="mini-stack"><span class="chip">Splunk</span><span class="chip">Symantec DLP</span><span class="chip">CyberArk</span><span class="chip">ELK</span></div>
+          </article>
+
+          <article class="card glass reveal" style="--delay: 270ms">
+            <div class="icon">04</div>
+            <h3>Audit Readiness</h3>
+            <p>Evidence validation, control mapping, risk registers, RACM support, SOPs, CAPA tracking, BCP/DR documentation, and executive dashboards.</p>
+            <div class="mini-stack"><span class="chip">Drata</span><span class="chip">SOC 2</span><span class="chip">ISO 27001</span><span class="chip">HIPAA</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="proof">
+      <div class="container">
+        <div class="proof-panel glass reveal">
+          <div class="section-head" style="margin-bottom: 24px">
+            <div>
+              <div class="label">Selected Proof</div>
+              <h2 class="section-title">Selected security work examples.</h2>
+            </div>
+            <p class="section-copy">Selected examples showing how vendor risk, audit readiness, and security operations translate into practical business decisions.</p>
+          </div>
+
+          <div class="proof-grid">
+            <article class="proof-card">
+              <small>Healthcare TPRM</small>
+              <h3>Vendor connectivity review</h3>
+              <p>Reviewed controls for cloud-hosted and vendor-managed systems handling PHI, including authentication, encryption, vulnerability management, BCP/DR, incident notification, and log-readiness.</p>
+            </article>
+            <article class="proof-card">
+              <small>Audit Readiness</small>
+              <h3>Control evidence validation</h3>
+              <p>Validated SOC 2 evidence in Drata, mapped controls to ISO 27001, reduced duplicate evidence collection, and supported cleaner audit walkthroughs.</p>
+            </article>
+            <article class="proof-card">
+              <small>Security Operations</small>
+              <h3>SIEM, DLP, and PAM support</h3>
+              <p>Built Splunk visibility, tuned DLP policies, supported CyberArk privileged access workflows, and documented incident and forensic support activities.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="label">Experience</div>
+            <h2 class="section-title">Cybersecurity experience across regulated environments.</h2>
+          </div>
+          <p class="section-copy">Cybersecurity experience across healthcare and financial services, covering GRC, infrastructure controls, SIEM, DLP, PAM, and audit support.</p>
+        </div>
+
+        <div class="timeline">
+          <article class="role glass reveal">
+            <div class="role-time">
+              <div class="date">Nov 2025 – Present</div>
+              <div class="company">US Renal Care</div>
+              <span class="tag">GRC, Vendor Risk & Infrastructure Controls</span>
+            </div>
+            <div>
+              <h3>Cybersecurity Architect</h3>
+              <p>Reviewed healthcare vendor connectivity, PHI data flows, VISO Trust assessments, Drata audit evidence, access reviews, and JIRA remediation across EHR, billing, telehealth, API/SFTP, and vendor-managed platforms.</p>
+            </div>
+          </article>
+
+          <article class="role glass reveal" style="--delay: 90ms">
+            <div class="role-time">
+              <div class="date">Apr 2025 – Oct 2025</div>
+              <div class="company">Wells Fargo</div>
+              <span class="tag">Cyber Risk & Control Reviews</span>
+            </div>
+            <div>
+              <h3>Cybersecurity Analyst</h3>
+              <p>Supported control reviews for applications, vendor services, and infrastructure-facing systems; documented evidence for access management, MFA, privileged access, vulnerability remediation, logging, change management, incident response, and BCP.</p>
+            </div>
+          </article>
+
+          <article class="role glass reveal" style="--delay: 180ms">
+            <div class="role-time">
+              <div class="date">Aug 2021 – Jan 2023</div>
+              <div class="company">State Street Bank</div>
+              <span class="tag">SIEM, DLP, PAM & Security Operations</span>
+            </div>
+            <div>
+              <h3>Cybersecurity Analyst</h3>
+              <p>Designed Splunk dashboards, tuned DLP policies, supported Symantec DLP upgrade readiness, administered CyberArk PAM activities, and supported incident triage, forensic evidence collection, DR testing, and production security operations.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="credentials">
+      <div class="container">
+        <div class="credentials">
+          <article class="credential-card glass reveal">
+            <div class="label">Credentials</div>
+            <h3>Certifications</h3>
+            <div class="credential-list">
+              <span>CISA</span>
+              <span>CompTIA Security+</span>
+              <span>ISO 27001:2022 Lead Auditor</span>
+              <span>Google Cybersecurity Certificate</span>
+              <span>Cisco Network Security</span>
+              <span>Cisco Cyber Threat Management</span>
+              <span>Cisco Endpoint Security</span>
+              <span>Cisco Ethical Hacker</span>
+            </div>
+          </article>
+
+          <article class="credential-card glass reveal" style="--delay: 120ms">
+            <div class="label">Education</div>
+            <h3>Academic Foundation</h3>
+            <p class="section-copy"><strong>MS, Cybersecurity</strong><br>University of Maryland Baltimore County, December 2024</p>
+            <br>
+            <p class="section-copy"><strong>Bachelor of Engineering, Computer Science</strong><br>QIS College of Engineering and Technology, July 2021</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-panel glass reveal">
+          <div>
+            <div class="label">Contact</div>
+            <h2>Need security work that connects risk with reality?</h2>
+            <p>Reach out for Cybersecurity GRC, vendor risk, infrastructure controls, IT risk, audit readiness, and network-security validation opportunities.</p>
+          </div>
+          <div class="contact-actions">
+            <div class="contact-box">
+              <small>Email</small>
+              <a href="mailto:s.s.bommineni@gmail.com?subject=Cybersecurity%20Opportunity">s.s.bommineni@gmail.com</a>
+            </div>
+            <div class="contact-box">
+              <small>Phone</small>
+              <a href="tel:6673698918">667-369-8918</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 Sai Sumanth · Cybersecurity GRC · Infrastructure Controls · Vendor Risk · Security Operations</div>
+  </footer>
+
+  <div class="copy-note" id="copyNote" role="status" aria-live="polite">Email copied</div>
+
+  <script>
+    const progress = document.getElementById('progress');
+    const spotlight = document.querySelector('.spotlight');
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    const copyEmail = document.getElementById('copyEmail');
+    const copyNote = document.getElementById('copyNote');
+    const glassCards = document.querySelectorAll('.glass');
+    const orbs = document.querySelectorAll('.orb');
+    const sections = document.querySelectorAll('main section[id]');
+    const anchors = document.querySelectorAll('.nav-links a');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let targetX = window.innerWidth / 2;
+    let targetY = window.innerHeight / 2;
+    let currentX = targetX;
+    let currentY = targetY;
+    let scrollTop = window.scrollY || document.documentElement.scrollTop;
+    let ticking = false;
+
+    function updateVisuals() {
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const ratio = height > 0 ? scrollTop / height : 0;
+      progress.style.transform = `scaleX(${Math.min(Math.max(ratio, 0), 1)})`;
+      document.body.classList.toggle('scrolled', scrollTop > 12);
+
+      const drift = Math.min(scrollTop, 900);
+      if (orbs[0]) orbs[0].style.transform = `translate3d(${drift * .014}px, ${drift * -.026}px, 0)`;
+      if (orbs[1]) orbs[1].style.transform = `translate3d(${drift * -.018}px, ${drift * .019}px, 0)`;
+      if (orbs[2]) orbs[2].style.transform = `translate3d(${drift * .010}px, ${drift * -.014}px, 0)`;
+
+      ticking = false;
+    }
+
+    function requestVisualUpdate() {
+      scrollTop = window.scrollY || document.documentElement.scrollTop;
+      if (!ticking) {
+        window.requestAnimationFrame(updateVisuals);
+        ticking = true;
+      }
+    }
+
+    function animateSpotlight() {
+      if (!prefersReducedMotion && spotlight) {
+        currentX += (targetX - currentX) * 0.075;
+        currentY += (targetY - currentY) * 0.075;
+        spotlight.style.setProperty('--x', currentX + 'px');
+        spotlight.style.setProperty('--y', currentY + 'px');
+        window.requestAnimationFrame(animateSpotlight);
+      }
+    }
+
+    window.addEventListener('pointermove', (event) => {
+      targetX = event.clientX;
+      targetY = event.clientY;
+    }, { passive: true });
+
+    window.addEventListener('scroll', requestVisualUpdate, { passive: true });
+    window.addEventListener('resize', requestVisualUpdate, { passive: true });
+    requestVisualUpdate();
+    animateSpotlight();
+
+    glassCards.forEach((card) => {
+      let cardFrame = null;
+      let nextX = 50;
+      let nextY = 0;
+
+      card.addEventListener('pointermove', (event) => {
+        const rect = card.getBoundingClientRect();
+        nextX = ((event.clientX - rect.left) / rect.width) * 100;
+        nextY = ((event.clientY - rect.top) / rect.height) * 100;
+
+        if (!cardFrame) {
+          cardFrame = window.requestAnimationFrame(() => {
+            card.style.setProperty('--mx', nextX + '%');
+            card.style.setProperty('--my', nextY + '%');
+            cardFrame = null;
+          });
+        }
+      }, { passive: true });
+
+      card.addEventListener('pointerleave', () => {
+        card.style.setProperty('--mx', '50%');
+        card.style.setProperty('--my', '0%');
+      }, { passive: true });
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -46px 0px' });
+
+    document.querySelectorAll('.reveal').forEach((item, index) => {
+      if (!item.style.getPropertyValue('--delay')) {
+        item.style.setProperty('--delay', `${Math.min((index % 6) * 55, 220)}ms`);
+      }
+      revealObserver.observe(item);
+    });
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const id = entry.target.getAttribute('id');
+        anchors.forEach((anchor) => {
+          anchor.classList.toggle('active', anchor.getAttribute('href') === '#' + id);
+        });
+      });
+    }, { threshold: 0.44 });
+
+    sections.forEach((section) => sectionObserver.observe(section));
+
+    if (menuBtn && navLinks) {
+      menuBtn.addEventListener('click', () => {
+        const open = navLinks.classList.toggle('open');
+        menuBtn.setAttribute('aria-expanded', String(open));
+        menuBtn.textContent = open ? '×' : '☰';
+      });
+    }
+
+    anchors.forEach((anchor) => {
+      anchor.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.textContent = '☰';
+      });
+    });
+
+    function easeOutQuart(t) {
+      return 1 - Math.pow(1 - t, 4);
+    }
+
+    function butteryScrollTo(targetY, duration = 900) {
+      if (prefersReducedMotion) {
+        window.scrollTo(0, targetY);
+        return;
+      }
+
+      const startY = window.scrollY || document.documentElement.scrollTop;
+      const distance = targetY - startY;
+      const start = performance.now();
+
+      function step(now) {
+        const elapsed = now - start;
+        const progressValue = Math.min(elapsed / duration, 1);
+        const eased = easeOutQuart(progressValue);
+        window.scrollTo(0, startY + distance * eased);
+
+        if (progressValue < 1) window.requestAnimationFrame(step);
+      }
+
+      window.requestAnimationFrame(step);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        const href = link.getAttribute('href');
+        const target = document.querySelector(href);
+        if (!target) return;
+        event.preventDefault();
+        const offset = window.innerWidth <= 760 ? 18 : 88;
+        const targetY = target.getBoundingClientRect().top + window.scrollY - offset;
+        butteryScrollTo(Math.max(targetY, 0));
+        history.pushState(null, '', href);
+      });
+    });
+
+    async function copyTextToClipboard(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+
+      const temp = document.createElement('input');
+      temp.value = text;
+      temp.setAttribute('readonly', '');
+      temp.style.position = 'fixed';
+      temp.style.left = '-9999px';
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      temp.remove();
+    }
+
+    function showCopyNote(message = 'Email copied') {
+      copyNote.textContent = message;
+      copyNote.classList.add('show');
+      window.setTimeout(() => copyNote.classList.remove('show'), 1600);
+    }
+
+    document.querySelectorAll('a[href^="mailto:"]').forEach((link) => {
+      link.addEventListener('click', async (event) => {
+        event.preventDefault();
+        const mailto = link.getAttribute('href');
+        const email = mailto.replace('mailto:', '').split('?')[0];
+
+        try {
+          await copyTextToClipboard(email);
+          showCopyNote('Email copied');
+        } catch (error) {
+          showCopyNote('Opening email');
+        }
+
+        window.setTimeout(() => {
+          window.location.href = mailto;
+        }, 180);
+      });
+    });
+
+    if (copyEmail) {
+      copyEmail.addEventListener('click', async () => {
+        try {
+          await copyTextToClipboard('s.s.bommineni@gmail.com');
+          showCopyNote('Email copied');
+        } catch (error) {
+          window.location.href = 'mailto:s.s.bommineni@gmail.com';
+        }
+      });
+    }
+
+
+    /* More visible scroll-linked animation layer. This keeps normal scrolling native,
+       but adds soft parallax/depth so the page no longer feels like static slides. */
+    (() => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion) return;
+
+      const animatedSections = Array.from(document.querySelectorAll('main section'));
+      const animatedItems = Array.from(document.querySelectorAll([
+        '.snapshot',
+        '.signal',
+        '.metric',
+        '.card',
+        '.proof-card',
+        '.role',
+        '.credential-card',
+        '.contact-panel',
+        '.contact-box'
+      ].join(',')));
+
+      animatedSections.forEach((section) => section.classList.add('section-motion'));
+      animatedItems.forEach((item, index) => {
+        item.classList.add('scroll-motion');
+        item.dataset.motionDirection = index % 2 === 0 ? '1' : '-1';
+      });
+
+      let targetScroll = window.scrollY || document.documentElement.scrollTop;
+      let smoothScroll = targetScroll;
+      let frame = null;
+
+      const clampLocal = (value, min, max) => Math.min(Math.max(value, min), max);
+
+      function paint() {
+        const viewport = window.innerHeight || 1;
+        const maxScroll = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const ratio = maxScroll > 0 ? smoothScroll / maxScroll : 0;
+
+        document.body.style.setProperty('--grid-y', `${smoothScroll * -0.026}px`);
+        if (progress) progress.style.transform = `scaleX(${clampLocal(ratio, 0, 1)})`;
+
+        animatedSections.forEach((section) => {
+          const container = section.querySelector(':scope > .container');
+          if (!container) return;
+          const rect = section.getBoundingClientRect();
+          const center = rect.top + rect.height / 2;
+          const distance = (center - viewport / 2) / viewport;
+          const abs = Math.min(Math.abs(distance), 1.2);
+
+          container.style.setProperty('--section-y', `${clampLocal(distance * -42, -54, 54).toFixed(2)}px`);
+          container.style.setProperty('--section-scale', `${(1 - abs * 0.026).toFixed(4)}`);
+          container.style.setProperty('--section-opacity', `${(1 - abs * 0.16).toFixed(3)}`);
+        });
+
+        animatedItems.forEach((item) => {
+          const rect = item.getBoundingClientRect();
+          if (rect.bottom < -180 || rect.top > viewport + 180) return;
+
+          const center = rect.top + rect.height / 2;
+          const distance = (center - viewport / 2) / viewport;
+          const abs = Math.min(Math.abs(distance), 1.35);
+          const direction = Number(item.dataset.motionDirection || 1);
+          const x = clampLocal(distance * direction * 20, -28, 28);
+          const y = clampLocal(distance * -34, -44, 44);
+          const rx = clampLocal(distance * 2.6, -3.2, 3.2);
+          const scale = 1 - abs * 0.022;
+          const opacity = 1 - abs * 0.26;
+
+          item.style.setProperty('--scroll-x', `${x.toFixed(2)}px`);
+          item.style.setProperty('--scroll-y', `${y.toFixed(2)}px`);
+          item.style.setProperty('--scroll-rx', `${rx.toFixed(3)}deg`);
+          item.style.setProperty('--scroll-scale', `${scale.toFixed(4)}`);
+          if (item.closest('#contact')) {
+            item.style.setProperty('--scroll-x', '0px');
+            item.style.setProperty('--scroll-y', '0px');
+            item.style.setProperty('--scroll-rx', '0deg');
+            item.style.setProperty('--scroll-scale', '1');
+            item.style.setProperty('--scroll-opacity', '1');
+          } else {
+            item.style.setProperty('--scroll-opacity', `${opacity.toFixed(3)}`);
+          }
+        });
+      }
+
+      function tick() {
+        smoothScroll += (targetScroll - smoothScroll) * 0.18;
+        paint();
+        if (Math.abs(targetScroll - smoothScroll) > 0.2) {
+          frame = window.requestAnimationFrame(tick);
+        } else {
+          smoothScroll = targetScroll;
+          paint();
+          frame = null;
+        }
+      }
+
+      function schedule() {
+        targetScroll = window.scrollY || document.documentElement.scrollTop;
+        if (!frame) frame = window.requestAnimationFrame(tick);
+      }
+
+      window.addEventListener('scroll', schedule, { passive: true });
+      window.addEventListener('resize', schedule, { passive: true });
+      schedule();
+    })();
+  </script>
+</body>
+</html>
