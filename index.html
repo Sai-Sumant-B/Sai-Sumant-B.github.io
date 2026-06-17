@@ -636,4 +636,23 @@
       margin-bottom: 10px;
     }
 
-    .proof-card p { color: var(--muted); font-size: .94rem
+    .proof-card p { color: var(--muted); font-size: .94rem; }
+
+    .timeline {
+      display: grid;
+      gap: 15px;
+    }
+
+    .role {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 22px;
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      transition: transform 720ms var(--spring), border-color 540ms var(--ease);
+    }
+
+    .role:hover { transform: translateY(-3px); border-color: rgba(255,255,255,.25); }
+
+    .role-time {
+      padding-right:
