@@ -33,7 +33,7 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
     body {
       min-height: 100vh;
       color: var(--text);
@@ -70,11 +70,24 @@
         linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px);
       background-size: 64px 64px;
       mask-image: linear-gradient(to bottom, black, transparent 78%);
+      animation: gridDrift 34s linear infinite;
+    }
+
+    @keyframes gridDrift {
+      from { background-position: 0 0, 0 0; }
+      to { background-position: 64px 64px, 64px 64px; }
     }
 
     a { color: inherit; text-decoration: none; }
     button { font: inherit; }
     ::selection { color: #031018; background: var(--cyan); }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 4px;
+      border-radius: 12px;
+    }
 
     .ambient {
       position: fixed;
@@ -94,7 +107,16 @@
       filter: blur(42px);
       opacity: .18;
       transform: translate3d(0,0,0);
-      will-change: transform;
+      will-change: transform, opacity, filter;
+      animation: orbBreath 16s ease-in-out infinite alternate;
+    }
+
+    .orb.two { animation-duration: 19s; animation-delay: -3s; }
+    .orb.three { animation-duration: 23s; animation-delay: -7s; }
+
+    @keyframes orbBreath {
+      from { opacity: .13; filter: blur(46px); }
+      to { opacity: .22; filter: blur(56px); }
     }
 
     .orb.one { left: -20vw; top: 8vh; background: var(--cyan); }
@@ -136,6 +158,19 @@
       -webkit-backdrop-filter: blur(26px) saturate(150%);
       background: rgba(5, 7, 13, .58);
       border-bottom: 1px solid rgba(255,255,255,.10);
+      animation: navReveal 760ms var(--spring) both;
+      transition: padding 520ms var(--spring), background 520ms var(--ease), border-color 520ms var(--ease);
+    }
+
+    body.scrolled .nav {
+      padding: 10px 0;
+      background: rgba(5, 7, 13, .72);
+      border-bottom-color: rgba(255,255,255,.16);
+    }
+
+    @keyframes navReveal {
+      from { opacity: 0; transform: translateY(-14px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .nav-inner {
@@ -267,6 +302,13 @@
       background: linear-gradient(110deg, #fff 0%, #dffefa 36%, #a9c5ff 70%, #ead6ff 100%);
       -webkit-background-clip: text;
       background-clip: text;
+      background-size: 180% 180%;
+      animation: textGlow 9s ease-in-out infinite alternate;
+    }
+
+    @keyframes textGlow {
+      from { background-position: 0% 50%; }
+      to { background-position: 100% 50%; }
     }
 
     .hero-text {
@@ -286,6 +328,9 @@
     }
 
     .btn {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
       min-height: 50px;
       display: inline-flex;
       align-items: center;
@@ -300,6 +345,18 @@
       will-change: transform;
     }
 
+    .btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: 0;
+      transform: translateX(-60%) skewX(-16deg);
+      background: linear-gradient(110deg, transparent, rgba(255,255,255,.26), transparent);
+      transition: opacity 420ms var(--ease), transform 720ms var(--spring);
+    }
+
+    .btn:hover::before { opacity: 1; transform: translateX(60%) skewX(-16deg); }
     .btn:hover { transform: translateY(-3px) scale(1.01); }
     .btn:active { transform: translateY(0) scale(.98); }
 
@@ -343,6 +400,8 @@
     .pill:hover { color: var(--text); background: rgba(255,255,255,.105); transform: translateY(-1px); }
 
     .glass {
+      transform: translateZ(0);
+      backface-visibility: hidden;
       position: relative;
       border: 1px solid rgba(255,255,255,.14);
       background: linear-gradient(180deg, rgba(255,255,255,.105), rgba(255,255,255,.055));
@@ -734,14 +793,26 @@
       opacity: 0;
       transform: translateY(24px) scale(.985);
       filter: blur(10px);
-      transition: opacity 800ms var(--spring), transform 800ms var(--spring), filter 800ms var(--spring);
+      transition: opacity 900ms var(--spring), transform 900ms var(--spring), filter 900ms var(--spring);
       transition-delay: var(--delay, 0ms);
+      will-change: opacity, transform, filter;
     }
 
     .reveal.visible {
       opacity: 1;
       transform: translateY(0) scale(1);
       filter: blur(0);
+    }
+
+    .hero .reveal.visible .kicker { animation: softLift 760ms var(--spring) both; }
+    .hero .reveal.visible h1 { animation: softLift 900ms var(--spring) 70ms both; }
+    .hero .reveal.visible .hero-text { animation: softLift 900ms var(--spring) 140ms both; }
+    .hero .reveal.visible .actions { animation: softLift 900ms var(--spring) 210ms both; }
+    .hero .reveal.visible .role-pills { animation: softLift 900ms var(--spring) 280ms both; }
+
+    @keyframes softLift {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @media (max-width: 1060px) {
@@ -793,6 +864,195 @@
       .spotlight, .ambient { display: none; }
       .reveal { opacity: 1; transform: none; filter: none; }
     }
+
+    /* Final Apple-style motion pass: smooth, layered, and recruiter-safe */
+    :root {
+      --apple-ease: cubic-bezier(.22, 1, .36, 1);
+      --apple-spring: cubic-bezier(.18, .89, .32, 1.08);
+      --apple-soft: cubic-bezier(.16, 1, .3, 1);
+    }
+
+    html { scroll-behavior: auto; }
+    body { --grid-y: 0px; --progress: 0; }
+
+    body::after {
+      animation: gridDrift 86s linear infinite;
+      transform: translate3d(0, var(--grid-y), 0);
+      will-change: transform, background-position;
+    }
+
+    .progress {
+      transform: scaleX(var(--progress));
+      transition: transform 90ms linear;
+    }
+
+    .nav,
+    .glass,
+    .btn,
+    .contact-box {
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+
+    .nav {
+      transition:
+        padding 680ms var(--apple-soft),
+        background 680ms var(--apple-ease),
+        border-color 680ms var(--apple-ease),
+        box-shadow 680ms var(--apple-ease);
+    }
+
+    body.scrolled .nav {
+      box-shadow: 0 18px 60px rgba(0, 0, 0, .22);
+    }
+
+    .nav-links,
+    .snapshot,
+    .metric,
+    .card,
+    .proof-card,
+    .role,
+    .credential-card,
+    .contact-panel,
+    .contact-box,
+    .signal {
+      will-change: transform, opacity;
+    }
+
+    section {
+      perspective: 1400px;
+      transform-style: preserve-3d;
+    }
+
+    .section-motion > .container {
+      transform:
+        translate3d(0, var(--section-y, 0px), 0)
+        scale(var(--section-scale, 1));
+      opacity: var(--section-opacity, 1);
+      will-change: transform, opacity;
+    }
+
+    .scroll-motion,
+    .reveal.visible.scroll-motion {
+      --scroll-x: 0px;
+      --scroll-y: 0px;
+      --scroll-scale: 1;
+      --scroll-opacity: 1;
+      --scroll-rx: 0deg;
+      --hover-y: 0px;
+      --hover-scale: 1;
+      opacity: var(--scroll-opacity, 1) !important;
+      transform:
+        translate3d(var(--scroll-x), calc(var(--scroll-y) + var(--hover-y)), 0)
+        rotateX(var(--scroll-rx))
+        scale(calc(var(--scroll-scale) * var(--hover-scale))) !important;
+      transform-origin: center center;
+      transition:
+        border-color 620ms var(--apple-ease),
+        background 620ms var(--apple-ease),
+        box-shadow 620ms var(--apple-ease);
+    }
+
+    .scroll-motion:hover {
+      --hover-y: -6px;
+      --hover-scale: 1.005;
+    }
+
+    .metric:hover,
+    .card:hover,
+    .role:hover,
+    .contact-box:hover {
+      box-shadow: 0 32px 92px rgba(0, 0, 0, .34);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translate3d(0, 22px, 0) scale(.988);
+      filter: blur(3px);
+      transition:
+        opacity 860ms var(--apple-ease),
+        transform 980ms var(--apple-soft),
+        filter 980ms var(--apple-ease);
+      transition-delay: var(--delay, 0ms);
+      will-change: opacity, transform, filter;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+      filter: blur(0);
+    }
+
+    .section-head.reveal.visible .label,
+    .section-head.reveal.visible .section-title,
+    .section-head.reveal.visible .section-copy {
+      animation: textRise 780ms var(--apple-soft) both;
+    }
+
+    .section-head.reveal.visible .section-title { animation-delay: 70ms; }
+    .section-head.reveal.visible .section-copy { animation-delay: 140ms; }
+
+    @keyframes textRise {
+      from { opacity: 0; transform: translate3d(0, 14px, 0); }
+      to { opacity: 1; transform: translate3d(0, 0, 0); }
+    }
+
+    .btn {
+      transition:
+        transform 700ms var(--apple-soft),
+        box-shadow 700ms var(--apple-ease),
+        background 620ms var(--apple-ease),
+        border-color 620ms var(--apple-ease);
+    }
+
+    .btn:hover { transform: translateY(-3px) scale(1.012); }
+    .btn:active { transform: translateY(0) scale(.985); }
+
+    .pill {
+      transition:
+        color 460ms var(--apple-ease),
+        background 460ms var(--apple-ease),
+        border-color 460ms var(--apple-ease),
+        transform 620ms var(--apple-soft);
+    }
+
+    .pill:hover {
+      border-color: rgba(255,255,255,.20);
+      transform: translateY(-2px);
+    }
+
+    .copy-note {
+      transition:
+        opacity 520ms var(--apple-ease),
+        transform 620ms var(--apple-soft);
+    }
+
+    @media (max-width: 760px) {
+      .section-motion > .container {
+        transform: translate3d(0, calc(var(--section-y, 0px) * .35), 0) scale(1);
+      }
+
+      .scroll-motion,
+      .reveal.visible.scroll-motion {
+        transform:
+          translate3d(0, calc(var(--scroll-y, 0px) * .55 + var(--hover-y)), 0)
+          scale(calc(1 * var(--hover-scale))) !important;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body::after { animation: none !important; transform: none !important; }
+      .section-motion > .container,
+      .scroll-motion,
+      .reveal,
+      .reveal.visible.scroll-motion {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+        transition: none !important;
+      }
+    }
+
   </style>
 </head>
 
@@ -878,9 +1138,9 @@
         <div class="section-head reveal">
           <div>
             <div class="label">Measured Impact</div>
-            <h2 class="section-title">Numbers that show execution, not just keywords.</h2>
+            <h2 class="section-title">Measured outcomes across risk, audit, and security operations.</h2>
           </div>
-          <p class="section-copy">Focused on the results recruiters and hiring managers care about: risk visibility, faster assessments, cleaner evidence, and stronger control ownership.</p>
+          <p class="section-copy">Focused on measurable outcomes across vendor risk, audit readiness, remediation tracking, privileged access reviews, and security control validation.</p>
         </div>
 
         <div class="impact-grid">
@@ -899,7 +1159,7 @@
         <div class="section-head reveal">
           <div>
             <div class="label">Expertise</div>
-            <h2 class="section-title">A cleaner blend of risk, controls, and technical validation.</h2>
+            <h2 class="section-title">Risk, controls, and technical validation in one security profile.</h2>
           </div>
           <p class="section-copy">Built for roles where GRC must connect with infrastructure, network security, audit evidence, and real production systems.</p>
         </div>
@@ -942,9 +1202,9 @@
           <div class="section-head" style="margin-bottom: 24px">
             <div>
               <div class="label">Selected Proof</div>
-              <h2 class="section-title">Real examples, kept concise.</h2>
+              <h2 class="section-title">Selected security work examples.</h2>
             </div>
-            <p class="section-copy">This section replaces bulky project descriptions with three high-signal stories that feel practical and believable.</p>
+            <p class="section-copy">Selected examples showing how vendor risk, audit readiness, and security operations translate into practical business decisions.</p>
           </div>
 
           <div class="proof-grid">
@@ -973,9 +1233,9 @@
         <div class="section-head reveal">
           <div>
             <div class="label">Experience</div>
-            <h2 class="section-title">Experience presented like a senior security profile.</h2>
+            <h2 class="section-title">Cybersecurity experience across regulated environments.</h2>
           </div>
-          <p class="section-copy">Concise enough for recruiters, detailed enough for technical hiring managers.</p>
+          <p class="section-copy">Cybersecurity experience across healthcare and financial services, covering GRC, infrastructure controls, SIEM, DLP, PAM, and audit support.</p>
         </div>
 
         <div class="timeline">
@@ -1081,57 +1341,175 @@
   <div class="copy-note" id="copyNote" role="status" aria-live="polite">Email copied</div>
 
   <script>
+
     const progress = document.getElementById('progress');
     const spotlight = document.querySelector('.spotlight');
     const menuBtn = document.getElementById('menuBtn');
     const navLinks = document.getElementById('navLinks');
     const copyEmail = document.getElementById('copyEmail');
     const copyNote = document.getElementById('copyNote');
-    const glassCards = document.querySelectorAll('.glass');
-    const orbs = document.querySelectorAll('.orb');
-    const sections = document.querySelectorAll('main section[id]');
-    const anchors = document.querySelectorAll('.nav-links a');
+    const glassCards = Array.from(document.querySelectorAll('.glass'));
+    const orbs = Array.from(document.querySelectorAll('.orb'));
+    const navAnchors = Array.from(document.querySelectorAll('.nav-links a'));
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    let latestX = window.innerWidth / 2;
-    let latestY = window.innerHeight / 2;
-    let ticking = false;
+    const sections = Array.from(document.querySelectorAll('main section'));
+    const anchorSections = Array.from(document.querySelectorAll('main section[id]'));
+    const motionItems = Array.from(document.querySelectorAll([
+      '.snapshot',
+      '.signal',
+      '.metric',
+      '.card',
+      '.proof-card',
+      '.role',
+      '.credential-card',
+      '.contact-panel',
+      '.contact-box'
+    ].join(',')));
 
-    function frame() {
-      spotlight.style.setProperty('--x', latestX + 'px');
-      spotlight.style.setProperty('--y', latestY + 'px');
-      ticking = false;
+    sections.forEach((section) => section.classList.add('section-motion'));
+
+    motionItems.forEach((item, index) => {
+      item.classList.add('scroll-motion');
+      item.dataset.motionDirection = index % 2 === 0 ? '1' : '-1';
+      item.dataset.motionDepth = item.classList.contains('signal') || item.classList.contains('contact-box') ? '0.55' : '1';
+    });
+
+    const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+    const lerp = (start, end, amount) => start + (end - start) * amount;
+
+    let targetX = window.innerWidth / 2;
+    let targetY = window.innerHeight / 2;
+    let currentX = targetX;
+    let currentY = targetY;
+    let targetScroll = window.scrollY || document.documentElement.scrollTop;
+    let smoothScroll = targetScroll;
+    let frame = null;
+    let lastViewportHeight = window.innerHeight || 1;
+
+    function setMotionVariable(element, name, value) {
+      element.style.setProperty(name, value);
     }
 
-    window.addEventListener('pointermove', (event) => {
-      latestX = event.clientX;
-      latestY = event.clientY;
-      if (!ticking) {
-        window.requestAnimationFrame(frame);
-        ticking = true;
+    function paint() {
+      const viewport = window.innerHeight || 1;
+      const maxScroll = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const actualScroll = window.scrollY || document.documentElement.scrollTop;
+      targetScroll = actualScroll;
+      smoothScroll = lerp(smoothScroll, targetScroll, 0.16);
+
+      const ratio = maxScroll > 0 ? targetScroll / maxScroll : 0;
+      document.body.style.setProperty('--progress', clamp(ratio, 0, 1).toFixed(4));
+      document.body.classList.toggle('scrolled', targetScroll > 14);
+      document.body.style.setProperty('--grid-y', `${(smoothScroll * -0.018).toFixed(2)}px`);
+
+      const drift = Math.min(smoothScroll, 1400);
+      if (orbs[0]) orbs[0].style.transform = `translate3d(${(drift * .018).toFixed(2)}px, ${(drift * -.032).toFixed(2)}px, 0) scale(${(1 + ratio * .022).toFixed(4)})`;
+      if (orbs[1]) orbs[1].style.transform = `translate3d(${(drift * -.024).toFixed(2)}px, ${(drift * .026).toFixed(2)}px, 0) scale(${(1 + ratio * .018).toFixed(4)})`;
+      if (orbs[2]) orbs[2].style.transform = `translate3d(${(drift * .014).toFixed(2)}px, ${(drift * -.020).toFixed(2)}px, 0) scale(${(1 + ratio * .020).toFixed(4)})`;
+
+      if (!prefersReducedMotion && spotlight) {
+        currentX = lerp(currentX, targetX, 0.085);
+        currentY = lerp(currentY, targetY, 0.085);
+        spotlight.style.setProperty('--x', `${currentX.toFixed(1)}px`);
+        spotlight.style.setProperty('--y', `${currentY.toFixed(1)}px`);
       }
+
+      if (!prefersReducedMotion) {
+        sections.forEach((section) => {
+          const container = section.querySelector(':scope > .container');
+          if (!container) return;
+
+          const rect = section.getBoundingClientRect();
+          const center = rect.top + rect.height / 2;
+          const distance = (center - viewport / 2) / viewport;
+          const abs = Math.min(Math.abs(distance), 1.25);
+
+          setMotionVariable(container, '--section-y', `${clamp(distance * -26, -36, 36).toFixed(2)}px`);
+          setMotionVariable(container, '--section-scale', `${(1 - abs * 0.012).toFixed(4)}`);
+          setMotionVariable(container, '--section-opacity', `${clamp(1 - abs * 0.08, 0.88, 1).toFixed(3)}`);
+        });
+
+        motionItems.forEach((item) => {
+          const rect = item.getBoundingClientRect();
+          if (rect.bottom < -220 || rect.top > viewport + 220) return;
+
+          const center = rect.top + rect.height / 2;
+          const distance = (center - viewport / 2) / viewport;
+          const abs = Math.min(Math.abs(distance), 1.35);
+          const direction = Number(item.dataset.motionDirection || 1);
+          const depth = Number(item.dataset.motionDepth || 1);
+
+          const x = clamp(distance * direction * 9 * depth, -16, 16);
+          const y = clamp(distance * -32 * depth, -40, 40);
+          const rx = clamp(distance * 1.25 * depth, -1.8, 1.8);
+          const scale = 1 - abs * 0.012 * depth;
+          const opacity = clamp(1 - abs * 0.14 * depth, 0.78, 1);
+
+          setMotionVariable(item, '--scroll-x', `${x.toFixed(2)}px`);
+          setMotionVariable(item, '--scroll-y', `${y.toFixed(2)}px`);
+          setMotionVariable(item, '--scroll-rx', `${rx.toFixed(3)}deg`);
+          setMotionVariable(item, '--scroll-scale', `${scale.toFixed(4)}`);
+          setMotionVariable(item, '--scroll-opacity', `${opacity.toFixed(3)}`);
+        });
+      }
+
+      const scrollSettled = Math.abs(targetScroll - smoothScroll) < 0.08;
+      const pointerSettled = Math.abs(targetX - currentX) < 0.25 && Math.abs(targetY - currentY) < 0.25;
+      const viewportSettled = Math.abs(lastViewportHeight - viewport) < 0.5;
+      lastViewportHeight = viewport;
+
+      if (!scrollSettled || !pointerSettled || !viewportSettled) {
+        frame = window.requestAnimationFrame(paint);
+      } else {
+        smoothScroll = targetScroll;
+        frame = null;
+      }
+    }
+
+    function startMotion() {
+      if (!frame) frame = window.requestAnimationFrame(paint);
+    }
+
+    window.addEventListener('scroll', startMotion, { passive: true });
+    window.addEventListener('resize', startMotion, { passive: true });
+    window.addEventListener('pointermove', (event) => {
+      targetX = event.clientX;
+      targetY = event.clientY;
+      startMotion();
     }, { passive: true });
 
-    function updateProgress() {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      progress.style.width = height > 0 ? ((scrollTop / height) * 100) + '%' : '0%';
-
-      const drift = Math.min(scrollTop, 900);
-      orbs[0].style.transform = `translate3d(${drift * .018}px, ${drift * -.035}px, 0)`;
-      orbs[1].style.transform = `translate3d(${drift * -.022}px, ${drift * .024}px, 0)`;
-      orbs[2].style.transform = `translate3d(${drift * .012}px, ${drift * -.018}px, 0)`;
-    }
-
-    window.addEventListener('scroll', updateProgress, { passive: true });
-    updateProgress();
-
     glassCards.forEach((card) => {
+      let cardFrame = null;
+      let currentMX = 50;
+      let currentMY = 0;
+      let nextMX = 50;
+      let nextMY = 0;
+
+      function moveGlow() {
+        currentMX = lerp(currentMX, nextMX, 0.16);
+        currentMY = lerp(currentMY, nextMY, 0.16);
+        card.style.setProperty('--mx', `${currentMX.toFixed(2)}%`);
+        card.style.setProperty('--my', `${currentMY.toFixed(2)}%`);
+
+        if (Math.abs(nextMX - currentMX) > .08 || Math.abs(nextMY - currentMY) > .08) {
+          cardFrame = window.requestAnimationFrame(moveGlow);
+        } else {
+          cardFrame = null;
+        }
+      }
+
       card.addEventListener('pointermove', (event) => {
         const rect = card.getBoundingClientRect();
-        const x = ((event.clientX - rect.left) / rect.width) * 100;
-        const y = ((event.clientY - rect.top) / rect.height) * 100;
-        card.style.setProperty('--mx', x + '%');
-        card.style.setProperty('--my', y + '%');
+        nextMX = ((event.clientX - rect.left) / rect.width) * 100;
+        nextMY = ((event.clientY - rect.top) / rect.height) * 100;
+        if (!cardFrame) cardFrame = window.requestAnimationFrame(moveGlow);
+      }, { passive: true });
+
+      card.addEventListener('pointerleave', () => {
+        nextMX = 50;
+        nextMY = 0;
+        if (!cardFrame) cardFrame = window.requestAnimationFrame(moveGlow);
       }, { passive: true });
     });
 
@@ -1139,48 +1517,141 @@
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.14, rootMargin: '0px 0px -70px 0px' });
+    }, { threshold: 0.14, rootMargin: '0px 0px -42px 0px' });
 
-    document.querySelectorAll('.reveal').forEach((item) => revealObserver.observe(item));
-
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const id = entry.target.getAttribute('id');
-        anchors.forEach((anchor) => {
-          anchor.classList.toggle('active', anchor.getAttribute('href') === '#' + id);
-        });
-      });
-    }, { threshold: 0.42 });
-
-    sections.forEach((section) => sectionObserver.observe(section));
-
-    menuBtn.addEventListener('click', () => {
-      const open = navLinks.classList.toggle('open');
-      menuBtn.setAttribute('aria-expanded', String(open));
-      menuBtn.textContent = open ? '×' : '☰';
+    document.querySelectorAll('.reveal').forEach((item, index) => {
+      if (!item.style.getPropertyValue('--delay')) {
+        item.style.setProperty('--delay', `${Math.min((index % 7) * 42, 210)}ms`);
+      }
+      revealObserver.observe(item);
     });
 
-    anchors.forEach((anchor) => {
+    const sectionObserver = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+      if (!visible) return;
+      const id = visible.target.getAttribute('id');
+      navAnchors.forEach((anchor) => {
+        anchor.classList.toggle('active', anchor.getAttribute('href') === '#' + id);
+      });
+    }, { threshold: [0.25, 0.42, 0.62] });
+
+    anchorSections.forEach((section) => sectionObserver.observe(section));
+
+    if (menuBtn && navLinks) {
+      menuBtn.addEventListener('click', () => {
+        const open = navLinks.classList.toggle('open');
+        menuBtn.setAttribute('aria-expanded', String(open));
+        menuBtn.textContent = open ? '×' : '☰';
+      });
+    }
+
+    navAnchors.forEach((anchor) => {
       anchor.addEventListener('click', () => {
+        if (!navLinks || !menuBtn) return;
         navLinks.classList.remove('open');
         menuBtn.setAttribute('aria-expanded', 'false');
         menuBtn.textContent = '☰';
       });
     });
 
-    copyEmail.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText('s.s.bommineni@gmail.com');
-        copyNote.classList.add('show');
-        window.setTimeout(() => copyNote.classList.remove('show'), 1600);
-      } catch (error) {
-        window.location.href = 'mailto:s.s.bommineni@gmail.com';
+    function easeOutQuint(t) {
+      return 1 - Math.pow(1 - t, 5);
+    }
+
+    function butteryScrollTo(targetY, duration = 980) {
+      if (prefersReducedMotion) {
+        window.scrollTo(0, targetY);
+        return;
       }
+
+      const startY = window.scrollY || document.documentElement.scrollTop;
+      const distance = targetY - startY;
+      const start = performance.now();
+
+      function step(now) {
+        const elapsed = now - start;
+        const progressValue = Math.min(elapsed / duration, 1);
+        const eased = easeOutQuint(progressValue);
+        window.scrollTo(0, startY + distance * eased);
+        if (progressValue < 1) window.requestAnimationFrame(step);
+      }
+
+      window.requestAnimationFrame(step);
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        const href = link.getAttribute('href');
+        const target = document.querySelector(href);
+        if (!target) return;
+        event.preventDefault();
+        const offset = window.innerWidth <= 760 ? 18 : 88;
+        const targetY = target.getBoundingClientRect().top + window.scrollY - offset;
+        butteryScrollTo(Math.max(targetY, 0));
+        history.pushState(null, '', href);
+      });
     });
+
+    async function copyTextToClipboard(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+
+      const temp = document.createElement('input');
+      temp.value = text;
+      temp.setAttribute('readonly', '');
+      temp.style.position = 'fixed';
+      temp.style.left = '-9999px';
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      temp.remove();
+    }
+
+    function showCopyNote(message = 'Email copied') {
+      if (!copyNote) return;
+      copyNote.textContent = message;
+      copyNote.classList.add('show');
+      window.setTimeout(() => copyNote.classList.remove('show'), 1600);
+    }
+
+    document.querySelectorAll('a[href^="mailto:"]').forEach((link) => {
+      link.addEventListener('click', async (event) => {
+        event.preventDefault();
+        const mailto = link.getAttribute('href');
+        const email = mailto.replace('mailto:', '').split('?')[0];
+
+        try {
+          await copyTextToClipboard(email);
+          showCopyNote('Email copied');
+        } catch (error) {
+          showCopyNote('Opening email');
+        }
+
+        window.setTimeout(() => {
+          window.location.href = mailto;
+        }, 180);
+      });
+    });
+
+    if (copyEmail) {
+      copyEmail.addEventListener('click', async () => {
+        try {
+          await copyTextToClipboard('s.s.bommineni@gmail.com');
+          showCopyNote('Email copied');
+        } catch (error) {
+          window.location.href = 'mailto:s.s.bommineni@gmail.com';
+        }
+      });
+    }
+
+    startMotion();
   </script>
 </body>
 </html>
