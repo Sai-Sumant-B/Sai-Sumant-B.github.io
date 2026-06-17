@@ -33,6 +33,20 @@
       --font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
+    /* NUCLEAR REMOVAL OVERRIDE */
+    #copyEmail, 
+    .contact-box:has(#copyEmail),
+    .contact-actions > .contact-box:nth-child(3) {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      height: 0 !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      border: none !important;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; scroll-padding-top: 96px; }
     body {
@@ -549,3 +563,229 @@
     .expertise-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      min-height: 260px;
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      transition: transform 760ms var(--spring), border-color 540ms var(--ease), background 540ms var(--ease);
+    }
+
+    .card:hover {
+      transform: translateY(-5px) scale(1.004);
+      border-color: rgba(255,255,255,.26);
+      background: linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.065));
+    }
+
+    .icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 17px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      color: #041018;
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      font-weight: 950;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+      letter-spacing: -.025em;
+    }
+
+    .card p { color: var(--muted); font-size: .95rem; }
+
+    .mini-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 17px;
+    }
+
+    .chip {
+      padding: 7px 9px;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 12px;
+      color: rgba(247,251,255,.70);
+      background: rgba(255,255,255,.055);
+      font-size: .82rem;
+      font-weight: 750;
+    }
+
+    .proof-panel {
+      border-radius: var(--radius-xl);
+      padding: clamp(22px, 4vw, 34px);
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .proof-card {
+      border-radius: 24px;
+      padding: 20px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+
+    .proof-card small {
+      display: inline-flex;
+      margin-bottom: 12px;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-weight: 950;
+      font-size: .72rem;
+    }
+
+    .proof-card h3 {
+      font-size: 1.08rem;
+      letter-spacing: -.02em;
+      margin-bottom: 10px;
+    }
+
+    .proof-card p { color: var(--muted); font-size: .94rem; }
+
+    .timeline {
+      display: grid;
+      gap: 15px;
+    }
+
+    .role {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 22px;
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      transition: transform 720ms var(--spring), border-color 540ms var(--ease);
+    }
+
+    .role:hover { transform: translateY(-3px); border-color: rgba(255,255,255,.25); }
+
+    .role-time {
+      padding-right: 18px;
+      border-right: 1px solid rgba(255,255,255,.12);
+    }
+
+    .date { color: var(--cyan); font-weight: 950; margin-bottom: 8px; }
+    .company { color: rgba(247,251,255,.78); font-weight: 850; }
+    .tag {
+      display: inline-flex;
+      margin-top: 12px;
+      padding: 7px 10px;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255,255,255,.055);
+      font-size: .8rem;
+      font-weight: 800;
+    }
+
+    .role h3 {
+      margin-bottom: 8px;
+      font-size: 1.18rem;
+      letter-spacing: -.02em;
+    }
+
+    .role p { color: var(--muted); }
+
+    .credentials {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 16px;
+    }
+
+    .credential-card {
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+
+    .credential-card h3 {
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+      letter-spacing: -.025em;
+    }
+
+    .credential-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .credential-list span {
+      padding: 9px 11px;
+      border-radius: 999px;
+      color: rgba(247,251,255,.78);
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      font-weight: 780;
+      font-size: .9rem;
+    }
+
+    .contact-panel {
+      display: grid;
+      grid-template-columns: 1fr .72fr;
+      gap: 26px;
+      align-items: center;
+      border-radius: 38px;
+      padding: clamp(28px, 5vw, 52px);
+    }
+
+    .contact-panel h2 {
+      margin-bottom: 14px;
+      font-size: clamp(2.2rem, 4.2vw, 4rem);
+      line-height: 1;
+      letter-spacing: -.07em;
+    }
+
+    .contact-panel p { color: var(--muted); font-size: 1.05rem; max-width: 720px; }
+
+    .contact-actions {
+      display: grid;
+      gap: 12px;
+    }
+
+    .contact-box {
+      padding: 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.055);
+      transition: transform 680ms var(--spring), background 520ms var(--ease), border-color 520ms var(--ease);
+      will-change: transform;
+    }
+
+    .contact-box:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,.22);
+      background: rgba(255,255,255,.08);
+    }
+
+    .contact-box small {
+      display: block;
+      color: var(--muted-2);
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: .72rem;
+      font-weight: 950;
+      margin-bottom: 4px;
+    }
+
+    .contact-box a,
+    .contact-box button {
+      color: var(--text);
+      border: 0;
+      background: none;
+      cursor: pointer;
+      font-weight: 850;
+      padding: 0;
+      text-align: left;
+    }
+
+    .contact-box a:hover,
+    .contact-box button:hover { color: var(--cyan); }
