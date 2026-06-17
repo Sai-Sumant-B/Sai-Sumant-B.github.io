@@ -1,654 +1,1186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sai Sumanth Bommineni | Cybersecurity Specialist</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sai Sumanth - CISA-certified Cybersecurity GRC, Vendor Risk, Infrastructure Controls, Network Security Validation, SIEM, DLP, PAM, and Audit Readiness professional." />
+  <meta name="keywords" content="Sai Sumanth, Cybersecurity GRC, Infrastructure Security, Network Security, Vendor Risk, TPRM, CISA, SOC 2, ISO 27001, HIPAA, Splunk, CyberArk, DLP, Drata, VISO Trust, JIRA" />
+  <meta name="author" content="Sai Sumanth" />
+  <title>Sai Sumanth | Cybersecurity GRC & Infrastructure Security</title>
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #e0e0e0;
-            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
-            min-height: 100vh;
-        }
+  <style>
+    :root {
+      --bg: #05070d;
+      --surface: rgba(255, 255, 255, 0.075);
+      --surface-strong: rgba(255, 255, 255, 0.12);
+      --line: rgba(255, 255, 255, 0.16);
+      --line-strong: rgba(255, 255, 255, 0.28);
+      --text: #f7fbff;
+      --muted: rgba(247, 251, 255, 0.68);
+      --muted-2: rgba(247, 251, 255, 0.50);
+      --cyan: #6fffe9;
+      --blue: #7aa7ff;
+      --purple: #c8a2ff;
+      --green: #9dffb0;
+      --radius-xl: 34px;
+      --radius-lg: 26px;
+      --radius-md: 18px;
+      --max: 1160px;
+      --ease: cubic-bezier(.2,.8,.2,1);
+      --spring: cubic-bezier(.16, 1, .3, 1);
+      --shadow: 0 28px 90px rgba(0, 0, 0, .38);
+      --font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
 
-        /* Animated background elements */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.1;
-        }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.55;
+      background: var(--bg);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
+    }
 
-        .floating-code {
-            position: absolute;
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
-            color: #00ff41;
-            animation: float 20s linear infinite;
-        }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 18% 12%, rgba(111, 255, 233, .22), transparent 28%),
+        radial-gradient(circle at 82% 7%, rgba(122, 167, 255, .22), transparent 30%),
+        radial-gradient(circle at 65% 78%, rgba(200, 162, 255, .18), transparent 35%),
+        linear-gradient(180deg, #070a12 0%, #05070d 62%, #02030a 100%);
+    }
 
-        @keyframes float {
-            from {
-                transform: translateY(100vh) translateX(0);
-            }
-            to {
-                transform: translateY(-100px) translateX(100px);
-            }
-        }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      opacity: .28;
+      background-image:
+        linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: linear-gradient(to bottom, black, transparent 78%);
+    }
 
-        /* Header */
-        header {
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            padding: 1rem 0;
-            border-bottom: 1px solid #00ff41;
-        }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    ::selection { color: #031018; background: var(--cyan); }
 
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-        }
+    .ambient {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+    }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #00ff41;
-            text-decoration: none;
-        }
+    .orb {
+      position: absolute;
+      width: 44vw;
+      height: 44vw;
+      min-width: 420px;
+      min-height: 420px;
+      border-radius: 999px;
+      filter: blur(42px);
+      opacity: .18;
+      transform: translate3d(0,0,0);
+      will-change: transform;
+    }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
+    .orb.one { left: -20vw; top: 8vh; background: var(--cyan); }
+    .orb.two { right: -18vw; top: 36vh; background: var(--blue); }
+    .orb.three { left: 32vw; bottom: -28vw; background: var(--purple); }
 
-        .nav-links a {
-            color: #e0e0e0;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
+    .spotlight {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: .28;
+      background: radial-gradient(500px circle at var(--x, 50%) var(--y, 40%), rgba(255,255,255,.09), transparent 42%);
+      transition: opacity 400ms var(--ease);
+    }
 
-        .nav-links a:hover {
-            color: #00ff41;
-        }
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      z-index: 10000;
+      background: linear-gradient(90deg, var(--cyan), var(--blue), var(--purple));
+      box-shadow: 0 0 24px rgba(111,255,233,.32);
+    }
 
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 0 2rem;
-            position: relative;
-        }
+    .container {
+      width: min(100% - 44px, var(--max));
+      margin: 0 auto;
+    }
 
-        .hero-content {
-            max-width: 800px;
-            z-index: 2;
-        }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      padding: 14px 0;
+      backdrop-filter: blur(26px) saturate(150%);
+      -webkit-backdrop-filter: blur(26px) saturate(150%);
+      background: rgba(5, 7, 13, .58);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
 
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #00ff41, #0099cc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
+    .nav-inner {
+      width: min(100% - 34px, var(--max));
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
 
-        @keyframes glow {
-            from { text-shadow: 0 0 20px rgba(0, 255, 65, 0.5); }
-            to { text-shadow: 0 0 30px rgba(0, 255, 65, 0.8); }
-        }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 850;
+      letter-spacing: -.03em;
+      white-space: nowrap;
+    }
 
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      color: #061018;
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      box-shadow: 0 16px 40px rgba(111,255,233,.18);
+      font-weight: 950;
+    }
 
-        .cta-button {
-            display: inline-block;
-            padding: 12px 30px;
-            background: linear-gradient(45deg, #00ff41, #0099cc);
-            color: #000;
-            text-decoration: none;
-            border-radius: 25px;
-            font-weight: bold;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      list-style: none;
+      padding: 6px;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 999px;
+      background: rgba(255,255,255,.055);
+    }
 
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 255, 65, 0.3);
-        }
+    .nav-links a {
+      display: block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: .92rem;
+      transition: color 260ms var(--ease), background 260ms var(--ease), transform 260ms var(--spring);
+    }
 
-        /* Sections */
-        section {
-            padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+      background: rgba(255,255,255,.10);
+      transform: translateY(-1px);
+    }
 
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            text-align: center;
-            color: #00ff41;
-            position: relative;
-        }
+    .menu-btn {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 14px;
+      color: var(--text);
+      background: rgba(255,255,255,.07);
+      cursor: pointer;
+    }
 
-        h2::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 3px;
-            background: linear-gradient(45deg, #00ff41, #0099cc);
-            margin: 10px auto;
-        }
+    section {
+      padding: 86px 0;
+      scroll-margin-top: 96px;
+    }
 
-        /* Skills Grid */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
+    .hero {
+      min-height: calc(100vh - 70px);
+      display: grid;
+      align-items: center;
+      padding: 72px 0 66px;
+    }
 
-        .skill-category {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 2rem;
-            border-radius: 10px;
-            border: 1px solid #333;
-            transition: transform 0.3s, border-color 0.3s;
-        }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(330px, .78fr);
+      gap: 36px;
+      align-items: center;
+    }
 
-        .skill-category:hover {
-            transform: translateY(-5px);
-            border-color: #00ff41;
-        }
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(111,255,233,.26);
+      color: var(--cyan);
+      background: rgba(111,255,233,.075);
+      font-weight: 800;
+      font-size: .88rem;
+    }
 
-        .skill-category h3 {
-            color: #00ff41;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--green);
+      box-shadow: 0 0 0 0 rgba(157,255,176,.6);
+      animation: pulse 2.2s infinite;
+    }
 
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(157,255,176,.6); }
+      70% { box-shadow: 0 0 0 11px rgba(157,255,176,0); }
+      100% { box-shadow: 0 0 0 0 rgba(157,255,176,0); }
+    }
 
-        .skill-tag {
-            background: linear-gradient(45deg, #333, #444);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            border: 1px solid #555;
-        }
+    h1 {
+      max-width: 880px;
+      margin-bottom: 24px;
+      font-size: clamp(3rem, 7vw, 6.9rem);
+      line-height: .91;
+      letter-spacing: -.08em;
+    }
 
-        /* Experience Timeline */
-        .timeline {
-            position: relative;
-            padding-left: 2rem;
-        }
+    .gradient-text {
+      color: transparent;
+      background: linear-gradient(110deg, #fff 0%, #dffefa 36%, #a9c5ff 70%, #ead6ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
 
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, #00ff41, #0099cc);
-        }
+    .hero-text {
+      max-width: 780px;
+      color: var(--muted);
+      font-size: clamp(1.08rem, 1.8vw, 1.32rem);
+    }
 
-        .timeline-item {
-            position: relative;
-            margin-bottom: 3rem;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 2rem;
-            border-radius: 10px;
-            border-left: 3px solid #00ff41;
-        }
+    .hero-text strong { color: var(--text); font-weight: 850; }
 
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -2.5rem;
-            top: 2rem;
-            width: 15px;
-            height: 15px;
-            background: #00ff41;
-            border-radius: 50%;
-            border: 3px solid #1a1a2e;
-        }
+    .actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 30px 0 26px;
+    }
 
-        .timeline-date {
-            color: #00ff41;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
+    .btn {
+      min-height: 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 13px 18px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 850;
+      transition: transform 420ms var(--spring), box-shadow 420ms var(--spring), background 300ms var(--ease), border-color 300ms var(--ease);
+      will-change: transform;
+    }
 
-        .timeline-company {
-            font-size: 1.2rem;
-            color: #0099cc;
-            margin-bottom: 0.5rem;
-        }
+    .btn:hover { transform: translateY(-3px) scale(1.01); }
+    .btn:active { transform: translateY(0) scale(.98); }
 
-        .timeline-role {
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
+    .btn-primary {
+      color: #031018;
+      border: 0;
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      box-shadow: 0 20px 44px rgba(111,255,233,.20);
+    }
 
-        .achievements {
-            list-style: none;
-        }
+    .btn-primary:hover { box-shadow: 0 28px 70px rgba(122,167,255,.24); }
 
-        .achievements li {
-            margin-bottom: 0.5rem;
-            padding-left: 1rem;
-            position: relative;
-        }
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(255,255,255,.075);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
 
-        .achievements li::before {
-            content: '▶';
-            position: absolute;
-            left: 0;
-            color: #00ff41;
-        }
+    .btn-secondary:hover {
+      border-color: rgba(255,255,255,.28);
+      background: rgba(255,255,255,.11);
+    }
 
-        /* Certifications */
-        .cert-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
+    .role-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
 
-        .cert-item {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 1.5rem;
-            border-radius: 10px;
-            text-align: center;
-            border: 1px solid #333;
-            transition: transform 0.3s, border-color 0.3s;
-        }
+    .pill {
+      padding: 9px 12px;
+      border-radius: 999px;
+      color: rgba(247,251,255,.74);
+      background: rgba(255,255,255,.065);
+      border: 1px solid rgba(255,255,255,.10);
+      font-size: .91rem;
+      transition: 280ms var(--ease);
+    }
 
-        .cert-item:hover {
-            transform: translateY(-3px);
-            border-color: #00ff41;
-        }
+    .pill:hover { color: var(--text); background: rgba(255,255,255,.105); transform: translateY(-1px); }
 
-        .cert-item i {
-            font-size: 2rem;
-            color: #00ff41;
-            margin-bottom: 1rem;
-        }
+    .glass {
+      position: relative;
+      border: 1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(255,255,255,.105), rgba(255,255,255,.055));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(26px) saturate(140%);
+      -webkit-backdrop-filter: blur(26px) saturate(140%);
+      overflow: hidden;
+    }
 
-        /* Contact Section */
-        .contact {
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 10px;
-            padding: 3rem;
-            text-align: center;
-        }
+    .glass::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 350ms var(--ease);
+      background: radial-gradient(480px circle at var(--mx, 50%) var(--my, 0%), rgba(255,255,255,.18), transparent 42%);
+    }
 
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
+    .glass:hover::before { opacity: 1; }
 
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #e0e0e0;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
+    .snapshot {
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      transform: translateZ(0);
+    }
 
-        .contact-item:hover {
-            color: #00ff41;
-        }
+    .snapshot-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
+      margin-bottom: 22px;
+    }
 
-        .contact-item i {
-            font-size: 1.2rem;
-        }
+    .snapshot h2 {
+      font-size: 1.35rem;
+      letter-spacing: -.035em;
+    }
 
-        /* Footer */
-        footer {
-            background: rgba(0, 0, 0, 0.9);
-            text-align: center;
-            padding: 2rem;
-            border-top: 1px solid #333;
-        }
+    .available {
+      flex: none;
+      padding: 7px 10px;
+      border-radius: 999px;
+      color: #061018;
+      background: var(--green);
+      font-weight: 950;
+      font-size: .76rem;
+    }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .contact-info {
-                flex-direction: column;
-                gap: 1rem;
-            }
-        }
+    .signal-grid {
+      display: grid;
+      gap: 10px;
+    }
 
-        /* Scroll animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
+    .signal {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 13px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.055);
+      border: 1px solid rgba(255,255,255,.10);
+    }
 
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+    .signal-num {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: #041018;
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      font-weight: 950;
+      letter-spacing: -.04em;
+    }
+
+    .signal strong { display: block; margin-bottom: 1px; }
+    .signal span { color: var(--muted-2); font-size: .9rem; }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .8fr) minmax(260px, .45fr);
+      gap: 26px;
+      align-items: end;
+      margin-bottom: 30px;
+    }
+
+    .label {
+      color: var(--cyan);
+      font-size: .78rem;
+      font-weight: 950;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: clamp(2.1rem, 4vw, 3.75rem);
+      line-height: 1.02;
+      letter-spacing: -.065em;
+    }
+
+    .section-copy {
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+    }
+
+    .metric {
+      min-height: 156px;
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      transition: transform 500ms var(--spring), border-color 300ms var(--ease), background 300ms var(--ease);
+    }
+
+    .metric:hover { transform: translateY(-6px); border-color: rgba(255,255,255,.26); }
+
+    .metric strong {
+      display: block;
+      margin-bottom: 10px;
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      line-height: .95;
+      letter-spacing: -.065em;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .expertise-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      min-height: 260px;
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      transition: transform 520ms var(--spring), border-color 320ms var(--ease), background 320ms var(--ease);
+    }
+
+    .card:hover {
+      transform: translateY(-7px) scale(1.006);
+      border-color: rgba(255,255,255,.26);
+      background: linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.065));
+    }
+
+    .icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 17px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      color: #041018;
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      font-weight: 950;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+      letter-spacing: -.025em;
+    }
+
+    .card p { color: var(--muted); font-size: .95rem; }
+
+    .mini-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 17px;
+    }
+
+    .chip {
+      padding: 7px 9px;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 12px;
+      color: rgba(247,251,255,.70);
+      background: rgba(255,255,255,.055);
+      font-size: .82rem;
+      font-weight: 750;
+    }
+
+    .proof-panel {
+      border-radius: var(--radius-xl);
+      padding: clamp(22px, 4vw, 34px);
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .proof-card {
+      border-radius: 24px;
+      padding: 20px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.10);
+    }
+
+    .proof-card small {
+      display: inline-flex;
+      margin-bottom: 12px;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-weight: 950;
+      font-size: .72rem;
+    }
+
+    .proof-card h3 {
+      font-size: 1.08rem;
+      letter-spacing: -.02em;
+      margin-bottom: 10px;
+    }
+
+    .proof-card p { color: var(--muted); font-size: .94rem; }
+
+    .timeline {
+      display: grid;
+      gap: 15px;
+    }
+
+    .role {
+      display: grid;
+      grid-template-columns: 210px 1fr;
+      gap: 22px;
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      transition: transform 500ms var(--spring), border-color 320ms var(--ease);
+    }
+
+    .role:hover { transform: translateY(-4px); border-color: rgba(255,255,255,.25); }
+
+    .role-time {
+      padding-right: 18px;
+      border-right: 1px solid rgba(255,255,255,.12);
+    }
+
+    .date { color: var(--cyan); font-weight: 950; margin-bottom: 8px; }
+    .company { color: rgba(247,251,255,.78); font-weight: 850; }
+    .tag {
+      display: inline-flex;
+      margin-top: 12px;
+      padding: 7px 10px;
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255,255,255,.055);
+      font-size: .8rem;
+      font-weight: 800;
+    }
+
+    .role h3 {
+      margin-bottom: 8px;
+      font-size: 1.18rem;
+      letter-spacing: -.02em;
+    }
+
+    .role p { color: var(--muted); }
+
+    .credentials {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 16px;
+    }
+
+    .credential-card {
+      border-radius: var(--radius-lg);
+      padding: 24px;
+    }
+
+    .credential-card h3 {
+      margin-bottom: 12px;
+      font-size: 1.2rem;
+      letter-spacing: -.025em;
+    }
+
+    .credential-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .credential-list span {
+      padding: 9px 11px;
+      border-radius: 999px;
+      color: rgba(247,251,255,.78);
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.10);
+      font-weight: 780;
+      font-size: .9rem;
+    }
+
+    .contact-panel {
+      display: grid;
+      grid-template-columns: 1fr .72fr;
+      gap: 26px;
+      align-items: center;
+      border-radius: 38px;
+      padding: clamp(28px, 5vw, 52px);
+    }
+
+    .contact-panel h2 {
+      margin-bottom: 14px;
+      font-size: clamp(2.2rem, 4.2vw, 4rem);
+      line-height: 1;
+      letter-spacing: -.07em;
+    }
+
+    .contact-panel p { color: var(--muted); font-size: 1.05rem; max-width: 720px; }
+
+    .contact-actions {
+      display: grid;
+      gap: 12px;
+    }
+
+    .contact-box {
+      padding: 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.055);
+    }
+
+    .contact-box small {
+      display: block;
+      color: var(--muted-2);
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: .72rem;
+      font-weight: 950;
+      margin-bottom: 4px;
+    }
+
+    .contact-box a,
+    .contact-box button {
+      color: var(--text);
+      border: 0;
+      background: none;
+      cursor: pointer;
+      font-weight: 850;
+      padding: 0;
+      text-align: left;
+    }
+
+    .contact-box a:hover,
+    .contact-box button:hover { color: var(--cyan); }
+
+    footer {
+      padding: 32px 0;
+      color: var(--muted-2);
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,.09);
+      font-size: .9rem;
+    }
+
+    .copy-note {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 9999;
+      transform: translateY(18px) scale(.96);
+      opacity: 0;
+      pointer-events: none;
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: #061018;
+      background: var(--green);
+      font-weight: 950;
+      box-shadow: 0 18px 44px rgba(0,0,0,.25);
+      transition: 360ms var(--spring);
+    }
+
+    .copy-note.show { opacity: 1; transform: translateY(0) scale(1); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px) scale(.985);
+      filter: blur(10px);
+      transition: opacity 800ms var(--spring), transform 800ms var(--spring), filter 800ms var(--spring);
+      transition-delay: var(--delay, 0ms);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+
+    @media (max-width: 1060px) {
+      .impact-grid { grid-template-columns: repeat(3, 1fr); }
+      .expertise-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-grid, .section-head, .credentials, .contact-panel { grid-template-columns: 1fr; }
+      .hero { min-height: auto; }
+    }
+
+    @media (max-width: 760px) {
+      .container { width: min(100% - 32px, var(--max)); }
+      .menu-btn { display: grid; place-items: center; }
+      .nav-links {
+        position: absolute;
+        top: 72px;
+        left: 16px;
+        right: 16px;
+        display: grid;
+        gap: 4px;
+        border-radius: 22px;
+        padding: 10px;
+        background: rgba(5,7,13,.92);
+        backdrop-filter: blur(24px) saturate(150%);
+        -webkit-backdrop-filter: blur(24px) saturate(150%);
+        transform: translateY(-12px) scale(.98);
+        opacity: 0;
+        pointer-events: none;
+        transition: 320ms var(--spring);
+      }
+      .nav-links.open { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto; }
+      .nav-links a { padding: 12px; }
+      .hero { padding-top: 54px; }
+      h1 { letter-spacing: -.065em; }
+      .impact-grid, .expertise-grid, .proof-grid { grid-template-columns: 1fr; }
+      .role { grid-template-columns: 1fr; }
+      .role-time { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.12); padding-right: 0; padding-bottom: 14px; }
+      .actions { align-items: stretch; }
+      .btn { width: 100%; }
+      section { padding: 64px 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .001ms !important;
+      }
+      .spotlight, .ambient { display: none; }
+      .reveal { opacity: 1; transform: none; filter: none; }
+    }
+  </style>
 </head>
+
 <body>
-    <!-- Animated Background -->
-    <div class="bg-animation">
-        <div class="floating-code" style="left: 10%; animation-delay: 0s;">#!/bin/bash</div>
-        <div class="floating-code" style="left: 80%; animation-delay: 5s;">nmap -sV target</div>
-        <div class="floating-code" style="left: 30%; animation-delay: 10s;">SELECT * FROM threats</div>
-        <div class="floating-code" style="left: 60%; animation-delay: 15s;">curl -X POST api/security</div>
-        <div class="floating-code" style="left: 20%; animation-delay: 8s;">grep -r "malware"</div>
-        <div class="floating-code" style="left: 70%; animation-delay: 3s;">python3 security_scan.py</div>
+  <div class="ambient" aria-hidden="true">
+    <div class="orb one"></div>
+    <div class="orb two"></div>
+    <div class="orb three"></div>
+  </div>
+  <div class="spotlight" aria-hidden="true"></div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <nav class="nav" aria-label="Primary navigation">
+    <div class="nav-inner">
+      <a class="brand" href="#home" aria-label="Sai Sumanth portfolio home">
+        <span class="brand-mark">SS</span>
+        <span>Sai Sumanth</span>
+      </a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-label="Toggle menu" aria-expanded="false">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#impact">Impact</a></li>
+        <li><a href="#expertise">Expertise</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#credentials">Credentials</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </div>
+  </nav>
 
-    <!-- Header -->
-    <header>
-        <nav>
-            <a href="#home" class="logo">Sai Sumanth</a>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#certifications">Certifications</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="reveal">
+          <div class="kicker"><span class="pulse"></span> CISA-Certified Cybersecurity GRC + Infrastructure Security</div>
+          <h1><span class="gradient-text">Cyber risk made clear, controlled, and business-ready.</span></h1>
+          <p class="hero-text">
+            I help regulated teams review <strong>vendor connectivity, PHI data flows, audit evidence, SIEM/DLP/PAM controls, and infrastructure-security gaps</strong> — then turn technical findings into decisions Security, Legal, Compliance, Procurement, and business teams can act on.
+          </p>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Sai Sumanth Bommineni</h1>
-            <p> Cybersecurity & Information Security Specialist</p>
-            <p>Protecting Digital Assets | GRC Expert | Cloud Security Architect</p>
-            <a href="#contact" class="cta-button">Let's Secure Your Business</a>
+          <div class="actions">
+            <a class="btn btn-primary" href="#contact">Contact Sai</a>
+            <a class="btn btn-secondary" href="#impact">View Impact</a>
+          </div>
+
+          <div class="role-pills" aria-label="Role focus areas">
+            <span class="pill">Cybersecurity GRC</span>
+            <span class="pill">Vendor Risk / TPRM</span>
+            <span class="pill">Infrastructure Controls</span>
+            <span class="pill">Network Security Validation</span>
+            <span class="pill">Audit Readiness</span>
+          </div>
         </div>
+
+        <aside class="snapshot glass reveal" style="--delay: 110ms" aria-label="Professional snapshot">
+          <div class="snapshot-top">
+            <div>
+              <div class="label">Snapshot</div>
+              <h2>GRC depth with hands-on security operations context.</h2>
+            </div>
+            <span class="available">Open</span>
+          </div>
+
+          <div class="signal-grid">
+            <div class="signal">
+              <div class="signal-num">80+</div>
+              <div><strong>Healthcare vendors reviewed</strong><span>EHR, billing, telehealth, cloud, API/SFTP, and vendor-managed platforms.</span></div>
+            </div>
+            <div class="signal">
+              <div class="signal-num">22</div>
+              <div><strong>PHI integrations documented</strong><span>FHIR/HL7 flows, authentication, encryption, logging, and ownership boundaries.</span></div>
+            </div>
+            <div class="signal">
+              <div class="signal-num">200+</div>
+              <div><strong>SOC 2 controls validated</strong><span>Identity, access, data protection, and infrastructure-security evidence.</span></div>
+            </div>
+          </div>
+        </aside>
+      </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="fade-in">
-        <h2><i class="fas fa-shield-alt"></i> Core Expertise</h2>
-        <div class="skills-grid">
-            <div class="skill-category">
-                <h3><i class="fas fa-lock"></i> Security Frameworks & Compliance</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">NIST 800-53</span>
-                    <span class="skill-tag">ISO 27001/27002</span>
-                    <span class="skill-tag">SOC 2</span>
-                    <span class="skill-tag">PCI-DSS</span>
-                    <span class="skill-tag">HIPAA</span>
-                    <span class="skill-tag">GDPR</span>
-                </div>
-            </div>
-            <div class="skill-category">
-                <h3><i class="fas fa-tools"></i> Security Tools & Technologies</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">CyberArk PAM</span>
-                    <span class="skill-tag">Splunk SIEM</span>
-                    <span class="skill-tag">Symantec DLP</span>
-                    <span class="skill-tag">Burp Suite</span>
-                    <span class="skill-tag">Wireshark</span>
-                    <span class="skill-tag">ServiceNow GRC</span>
-                </div>
-            </div>
-            <div class="skill-category">
-                <h3><i class="fas fa-cloud"></i> Cloud & Infrastructure</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">AWS EC2</span>
-                    <span class="skill-tag">GCP</span>
-                    <span class="skill-tag">Azure</span>
-                    <span class="skill-tag">VMware</span>
-                    <span class="skill-tag">Zero Trust</span>
-                    <span class="skill-tag">VPN/Firewalls</span>
-                </div>
-            </div>
-            <div class="skill-category">
-                <h3><i class="fas fa-code"></i> Programming & Automation</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">PowerShell</span>
-                    <span class="skill-tag">Bash</span>
-                    <span class="skill-tag">SQL</span>
-                    <span class="skill-tag">Security Automation</span>
-                </div>
-            </div>
+    <section id="impact">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="label">Measured Impact</div>
+            <h2 class="section-title">Numbers that show execution, not just keywords.</h2>
+          </div>
+          <p class="section-copy">Focused on the results recruiters and hiring managers care about: risk visibility, faster assessments, cleaner evidence, and stronger control ownership.</p>
         </div>
+
+        <div class="impact-grid">
+          <article class="metric glass reveal"><strong>80+</strong><span>vendors assessed across healthcare platforms and production integrations.</span></article>
+          <article class="metric glass reveal" style="--delay: 70ms"><strong>4→2</strong><span>months reduction in average vendor assessment cycle time.</span></article>
+          <article class="metric glass reveal" style="--delay: 140ms"><strong>47→22</strong><span>days reduction in average remediation tracking timelines.</span></article>
+          <article class="metric glass reveal" style="--delay: 210ms"><strong>230+</strong><span>privileged role assignments reviewed for least-privilege alignment.</span></article>
+          <article class="metric glass reveal" style="--delay: 280ms"><strong>35%</strong><span>duplicate evidence work reduced through SOC 2 to ISO 27001 mapping.</span></article>
+          <article class="metric glass reveal" style="--delay: 350ms"><strong>30%</strong><span>faster alert response through Splunk dashboards and correlation rules.</span></article>
+        </div>
+      </div>
     </section>
 
-    <!-- Experience Section -->
-    <section id="experience" class="fade-in">
-        <h2><i class="fas fa-briefcase"></i> Professional Experience</h2>
+    <section id="expertise">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="label">Expertise</div>
+            <h2 class="section-title">A cleaner blend of risk, controls, and technical validation.</h2>
+          </div>
+          <p class="section-copy">Built for roles where GRC must connect with infrastructure, network security, audit evidence, and real production systems.</p>
+        </div>
+
+        <div class="expertise-grid">
+          <article class="card glass reveal">
+            <div class="icon">01</div>
+            <h3>Vendor Risk & GRC</h3>
+            <p>End-to-end third-party reviews covering inherent risk, residual risk, control validation, executive summaries, and remediation tracking.</p>
+            <div class="mini-stack"><span class="chip">VISO Trust</span><span class="chip">ServiceNow GRC</span><span class="chip">Archer</span><span class="chip">JIRA</span></div>
+          </article>
+
+          <article class="card glass reveal" style="--delay: 90ms">
+            <div class="icon">02</div>
+            <h3>Infrastructure & Network Controls</h3>
+            <p>Connectivity and control reviews for API/SFTP integrations, TLS/SSL, MFA, RBAC, log forwarding, DR readiness, and firewall-rule support.</p>
+            <div class="mini-stack"><span class="chip">TCP/IP</span><span class="chip">DNS/DHCP</span><span class="chip">VPN</span><span class="chip">Wireshark</span></div>
+          </article>
+
+          <article class="card glass reveal" style="--delay: 180ms">
+            <div class="icon">03</div>
+            <h3>SIEM, DLP & PAM Operations</h3>
+            <p>Security operations context across Splunk dashboards, DLP policy tuning, CyberArk PAM activities, alert triage, and evidence support.</p>
+            <div class="mini-stack"><span class="chip">Splunk</span><span class="chip">Symantec DLP</span><span class="chip">CyberArk</span><span class="chip">ELK</span></div>
+          </article>
+
+          <article class="card glass reveal" style="--delay: 270ms">
+            <div class="icon">04</div>
+            <h3>Audit Readiness</h3>
+            <p>Evidence validation, control mapping, risk registers, RACM support, SOPs, CAPA tracking, BCP/DR documentation, and executive dashboards.</p>
+            <div class="mini-stack"><span class="chip">Drata</span><span class="chip">SOC 2</span><span class="chip">ISO 27001</span><span class="chip">HIPAA</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="proof">
+      <div class="container">
+        <div class="proof-panel glass reveal">
+          <div class="section-head" style="margin-bottom: 24px">
+            <div>
+              <div class="label">Selected Proof</div>
+              <h2 class="section-title">Real examples, kept concise.</h2>
+            </div>
+            <p class="section-copy">This section replaces bulky project descriptions with three high-signal stories that feel practical and believable.</p>
+          </div>
+
+          <div class="proof-grid">
+            <article class="proof-card">
+              <small>Healthcare TPRM</small>
+              <h3>Vendor connectivity review</h3>
+              <p>Reviewed controls for cloud-hosted and vendor-managed systems handling PHI, including authentication, encryption, vulnerability management, BCP/DR, incident notification, and log-readiness.</p>
+            </article>
+            <article class="proof-card">
+              <small>Audit Readiness</small>
+              <h3>Control evidence validation</h3>
+              <p>Validated SOC 2 evidence in Drata, mapped controls to ISO 27001, reduced duplicate evidence collection, and supported cleaner audit walkthroughs.</p>
+            </article>
+            <article class="proof-card">
+              <small>Security Operations</small>
+              <h3>SIEM, DLP, and PAM support</h3>
+              <p>Built Splunk visibility, tuned DLP policies, supported CyberArk privileged access workflows, and documented incident and forensic support activities.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="label">Experience</div>
+            <h2 class="section-title">Experience presented like a senior security profile.</h2>
+          </div>
+          <p class="section-copy">Concise enough for recruiters, detailed enough for technical hiring managers.</p>
+        </div>
+
         <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-date">June 2024 - Present</div>
-                <div class="timeline-company">Wells Fargo, Charlotte NC</div>
-                <div class="timeline-role"> Information Security Analyst</div>
-                <ul class="achievements">
-                    <li>Leading enterprise-wide vulnerability management and security operations</li>
-                    <li>Architecting secure network infrastructures with Zero Trust principles</li>
-                    <li>Managing ISO 27001-compliant ISMS and risk assessment programs</li>
-                    <li>Conducting SOC 2 and PCI-DSS compliance audits</li>
-                    <li>Implementing security awareness programs reducing phishing incidents by 60%</li>
-                </ul>
+          <article class="role glass reveal">
+            <div class="role-time">
+              <div class="date">Nov 2025 – Present</div>
+              <div class="company">US Renal Care</div>
+              <span class="tag">GRC, Vendor Risk & Infrastructure Controls</span>
             </div>
-            <div class="timeline-item">
-                <div class="timeline-date">June 2023 - June 2024</div>
-                <div class="timeline-company">E2Open, Minneapolis MN</div>
-                <div class="timeline-role">IT Security Analyst</div>
-                <ul class="achievements">
-                    <li>Administered CyberArk PAM platform for 5000+ privileged accounts</li>
-                    <li>Designed RBAC policies for multi-business unit IAM solutions</li>
-                    <li>Conducted quarterly access reviews ensuring regulatory compliance</li>
-                    <li>Monitored security events through Splunk SIEM platform</li>
-                </ul>
+            <div>
+              <h3>Cybersecurity Architect</h3>
+              <p>Reviewed healthcare vendor connectivity, PHI data flows, VISO Trust assessments, Drata audit evidence, access reviews, and JIRA remediation across EHR, billing, telehealth, API/SFTP, and vendor-managed platforms.</p>
             </div>
-            <div class="timeline-item">
-                <div class="timeline-date">August 2021 - January 2023</div>
-                <div class="timeline-company">State Street, Bengaluru India</div>
-                <div class="timeline-role">Cyber Security Analyst</div>
-                <ul class="achievements">
-                    <li>Managed global server infrastructure across APAC, NA, and EMEA</li>
-                    <li>Upgraded Symantec DLP reducing data leakage incidents by 40%</li>
-                    <li>Implemented disaster recovery procedures improving business continuity</li>
-                    <li>Enhanced system performance by 35% through kernel upgrades</li>
-                </ul>
+          </article>
+
+          <article class="role glass reveal" style="--delay: 90ms">
+            <div class="role-time">
+              <div class="date">Apr 2025 – Oct 2025</div>
+              <div class="company">Wells Fargo</div>
+              <span class="tag">Cyber Risk & Control Reviews</span>
             </div>
+            <div>
+              <h3>Cybersecurity Analyst</h3>
+              <p>Supported control reviews for applications, vendor services, and infrastructure-facing systems; documented evidence for access management, MFA, privileged access, vulnerability remediation, logging, change management, incident response, and BCP.</p>
+            </div>
+          </article>
+
+          <article class="role glass reveal" style="--delay: 180ms">
+            <div class="role-time">
+              <div class="date">Aug 2021 – Jan 2023</div>
+              <div class="company">State Street Bank</div>
+              <span class="tag">SIEM, DLP, PAM & Security Operations</span>
+            </div>
+            <div>
+              <h3>Cybersecurity Analyst</h3>
+              <p>Designed Splunk dashboards, tuned DLP policies, supported Symantec DLP upgrade readiness, administered CyberArk PAM activities, and supported incident triage, forensic evidence collection, DR testing, and production security operations.</p>
+            </div>
+          </article>
         </div>
+      </div>
     </section>
 
-    <!-- Certifications Section -->
-    <section id="certifications" class="fade-in">
-        <h2><i class="fas fa-certificate"></i> Certifications & Education</h2>
-        <div class="cert-grid">
-            <div class="cert-item">
-                <i class="fas fa-shield-alt"></i>
-                <h3>CompTIA Security+</h3>
-                <p>Industry-standard cybersecurity certification</p>
+    <section id="credentials">
+      <div class="container">
+        <div class="credentials">
+          <article class="credential-card glass reveal">
+            <div class="label">Credentials</div>
+            <h3>Certifications</h3>
+            <div class="credential-list">
+              <span>CISA</span>
+              <span>CompTIA Security+</span>
+              <span>ISO 27001:2022 Lead Auditor</span>
+              <span>Google Cybersecurity Certificate</span>
+              <span>Cisco Network Security</span>
+              <span>Cisco Cyber Threat Management</span>
+              <span>Cisco Endpoint Security</span>
+              <span>Cisco Ethical Hacker</span>
             </div>
-            <div class="cert-item">
-                <i class="fab fa-google"></i>
-                <h3>Google Cybersecurity</h3>
-                <p>Professional certificate program</p>
-            </div>
-            <div class="cert-item">
-                <i class="fas fa-search"></i>
-                <h3>ISO 27001:2022 Lead Auditor</h3>
-                <p>Information security management systems</p>
-            </div>
-            <div class="cert-item">
-                <i class="fas fa-chart-line"></i>
-                <h3>Splunk SIEM Bootcamp</h3>
-                <p>Advanced SIEM administration</p>
-            </div>
-            <div class="cert-item">
-                <i class="fas fa-graduation-cap"></i>
-                <h3>MS Cybersecurity</h3>
-                <p>University of Maryland Baltimore County<br>CGPA: 3.9/4.0</p>
-            </div>
-            <div class="cert-item">
-                <i class="fas fa-network-wired"></i>
-                <h3>Cisco Networking Academy</h3>
-                <p>Network Defense, Endpoint Security, Ethical Hacking</p>
-            </div>
+          </article>
+
+          <article class="credential-card glass reveal" style="--delay: 120ms">
+            <div class="label">Education</div>
+            <h3>Academic Foundation</h3>
+            <p class="section-copy"><strong>MS, Cybersecurity</strong><br>University of Maryland Baltimore County, December 2024</p>
+            <br>
+            <p class="section-copy"><strong>Bachelor of Engineering, Computer Science</strong><br>QIS College of Engineering and Technology, July 2021</p>
+          </article>
         </div>
+      </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="fade-in">
-        <div class="contact">
-            <h2><i class="fas fa-envelope"></i> Get In Touch</h2>
-            <p>Ready to strengthen your cybersecurity posture? Let's discuss how I can help protect your organization.</p>
-            <div class="contact-info">
-                <a href="tel:443-317-9834" class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span>443-317-9834</span>
-                </a>
-                <a href="mailto:s.s.bommineni@gmail.com" class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>s.s.bommineni@gmail.com</span>
-                </a>
-                <a href="https://linkedin.com/in/sai-sumanth-bommineni" class="contact-item" target="_blank">
-                    <i class="fab fa-linkedin"></i>
-                    <span>LinkedIn Profile</span>
-                </a>
-                <a href="https://github.com/Sai-Sumant-B" class="contact-item" target="_blank">
-                    <i class="fab fa-github"></i>
-                    <span>GitHub Portfolio</span>
-                </a>
+    <section id="contact">
+      <div class="container">
+        <div class="contact-panel glass reveal">
+          <div>
+            <div class="label">Contact</div>
+            <h2>Need security work that connects risk with reality?</h2>
+            <p>Reach out for Cybersecurity GRC, vendor risk, infrastructure controls, IT risk, audit readiness, and network-security validation opportunities.</p>
+          </div>
+          <div class="contact-actions">
+            <div class="contact-box">
+              <small>Email</small>
+              <a href="mailto:s.s.bommineni@gmail.com?subject=Cybersecurity%20Opportunity">s.s.bommineni@gmail.com</a>
             </div>
+            <div class="contact-box">
+              <small>Phone</small>
+              <a href="tel:6673698918">667-369-8918</a>
+            </div>
+            <div class="contact-box">
+              <small>Action</small>
+              <button type="button" id="copyEmail">Copy email to clipboard</button>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
+  </main>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Sai Sumanth Bommineni. Securing the digital world, one system at a time.</p>
-    </footer>
+  <footer>
+    <div class="container">© 2026 Sai Sumanth · Cybersecurity GRC · Infrastructure Controls · Vendor Risk · Security Operations</div>
+  </footer>
 
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+  <div class="copy-note" id="copyNote" role="status" aria-live="polite">Email copied</div>
 
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+  <script>
+    const progress = document.getElementById('progress');
+    const spotlight = document.querySelector('.spotlight');
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    const copyEmail = document.getElementById('copyEmail');
+    const copyNote = document.getElementById('copyNote');
+    const glassCards = document.querySelectorAll('.glass');
+    const orbs = document.querySelectorAll('.orb');
+    const sections = document.querySelectorAll('main section[id]');
+    const anchors = document.querySelectorAll('.nav-links a');
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
+    let latestX = window.innerWidth / 2;
+    let latestY = window.innerHeight / 2;
+    let ticking = false;
 
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
+    function frame() {
+      spotlight.style.setProperty('--x', latestX + 'px');
+      spotlight.style.setProperty('--y', latestY + 'px');
+      ticking = false;
+    }
 
-        // Dynamic typing effect for hero subtitle
-        const subtitle = document.querySelector('.hero p:first-of-type');
-        const originalText = subtitle.textContent;
-        subtitle.textContent = '';
-        
-        let i = 0;
-        function typeWriter() {
-            if (i < originalText.length) {
-                subtitle.textContent += originalText.charAt(i);
-                i++;
-                setTimeout(typeWriter, 50);
-            }
+    window.addEventListener('pointermove', (event) => {
+      latestX = event.clientX;
+      latestY = event.clientY;
+      if (!ticking) {
+        window.requestAnimationFrame(frame);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    function updateProgress() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      progress.style.width = height > 0 ? ((scrollTop / height) * 100) + '%' : '0%';
+
+      const drift = Math.min(scrollTop, 900);
+      orbs[0].style.transform = `translate3d(${drift * .018}px, ${drift * -.035}px, 0)`;
+      orbs[1].style.transform = `translate3d(${drift * -.022}px, ${drift * .024}px, 0)`;
+      orbs[2].style.transform = `translate3d(${drift * .012}px, ${drift * -.018}px, 0)`;
+    }
+
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    glassCards.forEach((card) => {
+      card.addEventListener('pointermove', (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 100;
+        const y = ((event.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty('--mx', x + '%');
+        card.style.setProperty('--my', y + '%');
+      }, { passive: true });
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
         }
-        
-        setTimeout(typeWriter, 1000);
+      });
+    }, { threshold: 0.14, rootMargin: '0px 0px -70px 0px' });
 
-        // Add floating animation to skill tags
-        document.querySelectorAll('.skill-tag').forEach((tag, index) => {
-            tag.style.animationDelay = `${index * 0.1}s`;
-            tag.addEventListener('mouseenter', function() {
-                this.style.transform = 'scale(1.05) translateY(-2px)';
-                this.style.background = 'linear-gradient(45deg, #00ff41, #0099cc)';
-                this.style.color = '#000';
-            });
-            
-            tag.addEventListener('mouseleave', function() {
-                this.style.transform = 'scale(1) translateY(0)';
-                this.style.background = 'linear-gradient(45deg, #333, #444)';
-                this.style.color = '#e0e0e0';
-            });
-        });
+    document.querySelectorAll('.reveal').forEach((item) => revealObserver.observe(item));
 
-        // Add parallax effect to background
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.5;
-            document.querySelector('.bg-animation').style.transform = `translateY(${rate}px)`;
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const id = entry.target.getAttribute('id');
+        anchors.forEach((anchor) => {
+          anchor.classList.toggle('active', anchor.getAttribute('href') === '#' + id);
         });
-    </script>
+      });
+    }, { threshold: 0.42 });
+
+    sections.forEach((section) => sectionObserver.observe(section));
+
+    menuBtn.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.textContent = open ? '×' : '☰';
+    });
+
+    anchors.forEach((anchor) => {
+      anchor.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.textContent = '☰';
+      });
+    });
+
+    copyEmail.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText('s.s.bommineni@gmail.com');
+        copyNote.classList.add('show');
+        window.setTimeout(() => copyNote.classList.remove('show'), 1600);
+      } catch (error) {
+        window.location.href = 'mailto:s.s.bommineni@gmail.com';
+      }
+    });
+  </script>
 </body>
 </html>
