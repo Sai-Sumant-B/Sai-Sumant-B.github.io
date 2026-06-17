@@ -33,20 +33,6 @@
       --font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
-    /* NUCLEAR REMOVAL OVERRIDE */
-    #copyEmail, 
-    .contact-box:has(#copyEmail),
-    .contact-actions > .contact-box:nth-child(3) {
-      display: none !important;
-      opacity: 0 !important;
-      visibility: hidden !important;
-      pointer-events: none !important;
-      height: 0 !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      border: none !important;
-    }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; scroll-padding-top: 96px; }
     body {
@@ -461,18 +447,7 @@
       font-size: 1.35rem;
       letter-spacing: -.035em;
     }
-
-    .available {
-      flex: none;
-      padding: 7px 10px;
-      border-radius: 999px;
-      color: #061018;
-      background: var(--green);
-      font-weight: 950;
-      font-size: .76rem;
-    }
-
-    .signal-grid {
+.signal-grid {
       display: grid;
       gap: 10px;
     }
@@ -892,7 +867,7 @@
     }
 
 
-    /* Cinematic scroll-motion upgrade: stronger but smooth Apple-style depth */
+    /* Cinematic scroll-motion upgrade: visible depth without heavy browser work */
     body::after {
       animation: gridDrift 64s linear infinite;
       transform: translate3d(0, var(--grid-y, 0px), 0);
@@ -939,104 +914,29 @@
       transition: transform 180ms linear, opacity 220ms var(--ease), background 520ms var(--ease), border-color 520ms var(--ease);
     }
 
-
-
-    /* Readability lock: keep contact and internal card text crisp during motion */
-    :root {
-      --muted: rgba(247, 251, 255, 0.86);
-      --muted-2: rgba(247, 251, 255, 0.76);
-    }
-
-    .hero-text,
-    .section-copy,
-    .metric span,
-    .card p,
-    .proof-card p,
-    .role p,
-    .signal span,
-    .contact-panel p,
-    .snapshot h2,
-    .contact-box small,
-    .contact-box a,
-    .contact-box button {
-      opacity: 1 !important;
-      filter: none !important;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: geometricPrecision;
-    }
-
-    .hero-text,
-    .section-copy,
-    .metric span,
-    .card p,
-    .proof-card p,
-    .role p,
-    .signal span,
-    .contact-panel p {
-      color: rgba(247, 251, 255, 0.88) !important;
-    }
-
-    .contact-box small {
-      color: rgba(247, 251, 255, 0.82) !important;
-      letter-spacing: .16em;
-    }
-
-    .contact-box a,
-    .contact-box button {
-      color: #ffffff !important;
-      font-weight: 900 !important;
-      text-shadow: 0 0 18px rgba(255, 255, 255, 0.10);
-    }
-
-    .contact-box,
-    .contact-panel,
-    #contact .container,
-    #contact .reveal,
-    #contact .scroll-motion,
-    #contact .reveal.visible.scroll-motion {
-      opacity: 1 !important;
-      filter: none !important;
-    }
-
-    /* The contact card contains critical info, so do not rotate/scale it while scrolling. */
-    #contact .container,
-    #contact .contact-panel.scroll-motion,
-    #contact .contact-box.scroll-motion {
-      transform: translate3d(0, 0, 0) !important;
-    }
-
-    @media (max-width: 760px) {
-      .contact-box small {
-        color: rgba(247, 251, 255, 0.88) !important;
-      }
-
-      .contact-box a,
-      .contact-box button {
-        color: #ffffff !important;
-        font-weight: 950 !important;
-      }
-
-      #contact .container,
-      #contact .contact-panel,
-      #contact .contact-box,
-      #contact .scroll-motion {
-        transform: none !important;
+    @media (prefers-reduced-motion: reduce) {
+      body::after { animation: none !important; transform: none !important; }
+      .section-motion > .container,
+      .scroll-motion,
+      .reveal,
+      .reveal.visible.scroll-motion {
         opacity: 1 !important;
-        filter: none !important;
+        transform: none !important;
+        transition: none !important;
       }
     }
 
 
-    /* FINAL CRISP TEXT PASS: keep Apple polish, but remove text-softening transforms from content */
+    /* CRISP READABILITY PATCH: keep the visual style, but stop text from looking blurred/faded. */
     :root {
-      --muted: rgba(255, 255, 255, 0.91);
-      --muted-2: rgba(255, 255, 255, 0.80);
+      --muted: rgba(255, 255, 255, 0.92);
+      --muted-2: rgba(255, 255, 255, 0.84);
     }
 
+    body,
     main,
     section,
     .container,
-    .section-head,
     .glass,
     .snapshot,
     .signal,
@@ -1048,15 +948,15 @@
     .contact-panel,
     .contact-box {
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
       text-rendering: optimizeLegibility;
       filter: none !important;
     }
 
-    /* Do not scale/rotate/fade text-bearing blocks while scrolling. This prevents the soft/blurred look. */
+    /* Text-bearing sections should not fade, scale, rotate, or soften during scroll. */
     .section-motion > .container,
     .scroll-motion,
     .reveal.visible.scroll-motion,
-    .glass,
     .snapshot,
     .signal,
     .metric,
@@ -1068,15 +968,18 @@
     .contact-box {
       opacity: 1 !important;
       transform: none !important;
+      filter: none !important;
       will-change: auto !important;
       backface-visibility: visible !important;
     }
 
+    .reveal {
+      filter: none !important;
+    }
+
     .reveal.visible {
       opacity: 1 !important;
-      transform: none !important;
       filter: none !important;
-      will-change: auto !important;
     }
 
     .hero-text,
@@ -1125,13 +1028,13 @@
     .chip,
     .pill,
     .tag,
-    .credential-list span {
+    .credential-list span,
+    .nav-links a {
       color: rgba(255, 255, 255, 0.88) !important;
       opacity: 1 !important;
       filter: none !important;
     }
 
-    /* Keep interaction polished without moving text itself. */
     .metric:hover,
     .card:hover,
     .role:hover,
@@ -1139,32 +1042,11 @@
     .scroll-motion:hover {
       transform: none !important;
       border-color: rgba(255,255,255,.26) !important;
-      background: linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.065));
       box-shadow: 0 28px 82px rgba(0, 0, 0, .34);
     }
 
     .btn:hover {
       transform: translateY(-2px) scale(1.006) !important;
-    }
-
-    @media (max-width: 760px) {
-      .section-motion > .container,
-      .scroll-motion,
-      .reveal.visible.scroll-motion,
-      .glass,
-      .snapshot,
-      .signal,
-      .metric,
-      .card,
-      .proof-card,
-      .role,
-      .credential-card,
-      .contact-panel,
-      .contact-box {
-        transform: none !important;
-        opacity: 1 !important;
-        filter: none !important;
-      }
     }
 
   </style>
@@ -1226,7 +1108,7 @@
               <div class="label">Snapshot</div>
               <h2>GRC depth with hands-on security operations context.</h2>
             </div>
-          </div>
+</div>
 
           <div class="signal-grid">
             <div class="signal">
@@ -1437,6 +1319,10 @@
               <small>Phone</small>
               <a href="tel:6673698918">667-369-8918</a>
             </div>
+            <div class="contact-box">
+              <small>Action</small>
+              <button type="button" id="copyEmail">Copy email to clipboard</button>
+            </div>
           </div>
         </div>
       </div>
@@ -1458,96 +1344,170 @@
     const copyNote = document.getElementById('copyNote');
     const glassCards = document.querySelectorAll('.glass');
     const orbs = document.querySelectorAll('.orb');
-    const sections = document.querySelectorAll('main section[id]');
-    const anchors = document.querySelectorAll('.nav-links a');
+    const navAnchors = document.querySelectorAll('.nav-links a');
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const sections = Array.from(document.querySelectorAll('main section'));
+    const anchorSections = Array.from(document.querySelectorAll('main section[id]'));
+    const motionItems = Array.from(document.querySelectorAll([
+      '.snapshot',
+      '.signal',
+      '.metric',
+      '.card',
+      '.proof-card',
+      '.role',
+      '.credential-card',
+      '.contact-panel',
+      '.contact-box'
+    ].join(',')));
+
+    sections.forEach((section) => section.classList.add('section-motion'));
+    motionItems.forEach((item, index) => {
+      item.classList.add('scroll-motion');
+      item.dataset.motionDirection = index % 2 === 0 ? '1' : '-1';
+    });
+
+    function clamp(value, min, max) {
+      return Math.min(Math.max(value, min), max);
+    }
 
     let targetX = window.innerWidth / 2;
     let targetY = window.innerHeight / 2;
     let currentX = targetX;
     let currentY = targetY;
-    let scrollTop = window.scrollY || document.documentElement.scrollTop;
-    let ticking = false;
+    let targetScroll = window.scrollY || document.documentElement.scrollTop;
+    let smoothScroll = targetScroll;
+    let frame = null;
 
-    function updateVisuals() {
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const ratio = height > 0 ? scrollTop / height : 0;
-      progress.style.transform = `scaleX(${Math.min(Math.max(ratio, 0), 1)})`;
-      document.body.classList.toggle('scrolled', scrollTop > 12);
+    function paint() {
+      const viewport = window.innerHeight || 1;
+      const maxScroll = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const ratio = maxScroll > 0 ? targetScroll / maxScroll : 0;
 
-      const drift = Math.min(scrollTop, 900);
-      if (orbs[0]) orbs[0].style.transform = `translate3d(${drift * .014}px, ${drift * -.026}px, 0)`;
-      if (orbs[1]) orbs[1].style.transform = `translate3d(${drift * -.018}px, ${drift * .019}px, 0)`;
-      if (orbs[2]) orbs[2].style.transform = `translate3d(${drift * .010}px, ${drift * -.014}px, 0)`;
+      if (progress) progress.style.transform = `scaleX(${clamp(ratio, 0, 1)})`;
+      document.body.classList.toggle('scrolled', targetScroll > 12);
+      document.body.style.setProperty('--grid-y', `${smoothScroll * -0.026}px`);
 
-      ticking = false;
-    }
+      const drift = Math.min(smoothScroll, 1200);
+      if (orbs[0]) orbs[0].style.transform = `translate3d(${drift * .020}px, ${drift * -.038}px, 0) scale(${1 + ratio * .030})`;
+      if (orbs[1]) orbs[1].style.transform = `translate3d(${drift * -.026}px, ${drift * .030}px, 0) scale(${1 + ratio * .022})`;
+      if (orbs[2]) orbs[2].style.transform = `translate3d(${drift * .016}px, ${drift * -.024}px, 0) scale(${1 + ratio * .026})`;
 
-    function requestVisualUpdate() {
-      scrollTop = window.scrollY || document.documentElement.scrollTop;
-      if (!ticking) {
-        window.requestAnimationFrame(updateVisuals);
-        ticking = true;
-      }
-    }
-
-    function animateSpotlight() {
       if (!prefersReducedMotion && spotlight) {
         currentX += (targetX - currentX) * 0.075;
         currentY += (targetY - currentY) * 0.075;
         spotlight.style.setProperty('--x', currentX + 'px');
         spotlight.style.setProperty('--y', currentY + 'px');
-        window.requestAnimationFrame(animateSpotlight);
+      }
+
+      if (!prefersReducedMotion) {
+        sections.forEach((section) => {
+          const container = section.querySelector(':scope > .container');
+          if (!container) return;
+
+          const rect = section.getBoundingClientRect();
+          const center = rect.top + rect.height / 2;
+          const distance = (center - viewport / 2) / viewport;
+          const abs = Math.min(Math.abs(distance), 1.2);
+
+          container.style.setProperty('--section-y', `${clamp(distance * -42, -54, 54).toFixed(2)}px`);
+          container.style.setProperty('--section-scale', `${(1 - abs * 0.026).toFixed(4)}`);
+          container.style.setProperty('--section-opacity', `${(1 - abs * 0.16).toFixed(3)}`);
+        });
+
+        motionItems.forEach((item) => {
+          const rect = item.getBoundingClientRect();
+          if (rect.bottom < -180 || rect.top > viewport + 180) return;
+
+          const center = rect.top + rect.height / 2;
+          const distance = (center - viewport / 2) / viewport;
+          const abs = Math.min(Math.abs(distance), 1.35);
+          const direction = Number(item.dataset.motionDirection || 1);
+          const x = clamp(distance * direction * 20, -28, 28);
+          const y = clamp(distance * -34, -44, 44);
+          const rx = clamp(distance * 2.6, -3.2, 3.2);
+          const scale = 1 - abs * 0.022;
+          const opacity = 1 - abs * 0.26;
+
+          item.style.setProperty('--scroll-x', `${x.toFixed(2)}px`);
+          item.style.setProperty('--scroll-y', `${y.toFixed(2)}px`);
+          item.style.setProperty('--scroll-rx', `${rx.toFixed(3)}deg`);
+          item.style.setProperty('--scroll-scale', `${scale.toFixed(4)}`);
+          item.style.setProperty('--scroll-opacity', `${opacity.toFixed(3)}`);
+        });
       }
     }
 
+    function animate() {
+      smoothScroll += (targetScroll - smoothScroll) * 0.18;
+      paint();
+
+      const stillMoving = Math.abs(targetScroll - smoothScroll) > 0.15 || Math.abs(targetX - currentX) > 0.3 || Math.abs(targetY - currentY) > 0.3;
+      if (stillMoving) {
+        frame = window.requestAnimationFrame(animate);
+      } else {
+        smoothScroll = targetScroll;
+        paint();
+        frame = null;
+      }
+    }
+
+    function scheduleAnimation() {
+      targetScroll = window.scrollY || document.documentElement.scrollTop;
+      if (!frame) frame = window.requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('scroll', scheduleAnimation, { passive: true });
+    window.addEventListener('resize', scheduleAnimation, { passive: true });
     window.addEventListener('pointermove', (event) => {
       targetX = event.clientX;
       targetY = event.clientY;
+      if (!frame) frame = window.requestAnimationFrame(animate);
     }, { passive: true });
-
-    window.addEventListener('scroll', requestVisualUpdate, { passive: true });
-    window.addEventListener('resize', requestVisualUpdate, { passive: true });
-    requestVisualUpdate();
-    animateSpotlight();
 
     glassCards.forEach((card) => {
       let cardFrame = null;
-      let nextX = 50;
-      let nextY = 0;
+      let currentMX = 50;
+      let currentMY = 0;
+      let nextMX = 50;
+      let nextMY = 0;
+
+      function moveGlow() {
+        currentMX += (nextMX - currentMX) * 0.18;
+        currentMY += (nextMY - currentMY) * 0.18;
+        card.style.setProperty('--mx', currentMX + '%');
+        card.style.setProperty('--my', currentMY + '%');
+
+        if (Math.abs(nextMX - currentMX) > .1 || Math.abs(nextMY - currentMY) > .1) {
+          cardFrame = window.requestAnimationFrame(moveGlow);
+        } else {
+          cardFrame = null;
+        }
+      }
 
       card.addEventListener('pointermove', (event) => {
         const rect = card.getBoundingClientRect();
-        nextX = ((event.clientX - rect.left) / rect.width) * 100;
-        nextY = ((event.clientY - rect.top) / rect.height) * 100;
-
-        if (!cardFrame) {
-          cardFrame = window.requestAnimationFrame(() => {
-            card.style.setProperty('--mx', nextX + '%');
-            card.style.setProperty('--my', nextY + '%');
-            cardFrame = null;
-          });
-        }
+        nextMX = ((event.clientX - rect.left) / rect.width) * 100;
+        nextMY = ((event.clientY - rect.top) / rect.height) * 100;
+        if (!cardFrame) cardFrame = window.requestAnimationFrame(moveGlow);
       }, { passive: true });
 
       card.addEventListener('pointerleave', () => {
-        card.style.setProperty('--mx', '50%');
-        card.style.setProperty('--my', '0%');
+        nextMX = 50;
+        nextMY = 0;
+        if (!cardFrame) cardFrame = window.requestAnimationFrame(moveGlow);
       }, { passive: true });
     });
 
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
-        }
+        entry.target.classList.toggle('visible', entry.isIntersecting);
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -46px 0px' });
+    }, { threshold: 0.16, rootMargin: '0px 0px -34px 0px' });
 
     document.querySelectorAll('.reveal').forEach((item, index) => {
       if (!item.style.getPropertyValue('--delay')) {
-        item.style.setProperty('--delay', `${Math.min((index % 6) * 55, 220)}ms`);
+        item.style.setProperty('--delay', `${Math.min((index % 7) * 46, 230)}ms`);
       }
       revealObserver.observe(item);
     });
@@ -1556,13 +1516,13 @@
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         const id = entry.target.getAttribute('id');
-        anchors.forEach((anchor) => {
+        navAnchors.forEach((anchor) => {
           anchor.classList.toggle('active', anchor.getAttribute('href') === '#' + id);
         });
       });
-    }, { threshold: 0.44 });
+    }, { threshold: 0.42 });
 
-    sections.forEach((section) => sectionObserver.observe(section));
+    anchorSections.forEach((section) => sectionObserver.observe(section));
 
     if (menuBtn && navLinks) {
       menuBtn.addEventListener('click', () => {
@@ -1572,19 +1532,20 @@
       });
     }
 
-    anchors.forEach((anchor) => {
+    navAnchors.forEach((anchor) => {
       anchor.addEventListener('click', () => {
+        if (!navLinks || !menuBtn) return;
         navLinks.classList.remove('open');
         menuBtn.setAttribute('aria-expanded', 'false');
         menuBtn.textContent = '☰';
       });
     });
 
-    function easeOutQuart(t) {
-      return 1 - Math.pow(1 - t, 4);
+    function easeOutCubic(t) {
+      return 1 - Math.pow(1 - t, 3);
     }
 
-    function butteryScrollTo(targetY, duration = 900) {
+    function butteryScrollTo(targetY, duration = 1050) {
       if (prefersReducedMotion) {
         window.scrollTo(0, targetY);
         return;
@@ -1597,9 +1558,8 @@
       function step(now) {
         const elapsed = now - start;
         const progressValue = Math.min(elapsed / duration, 1);
-        const eased = easeOutQuart(progressValue);
+        const eased = easeOutCubic(progressValue);
         window.scrollTo(0, startY + distance * eased);
-
         if (progressValue < 1) window.requestAnimationFrame(step);
       }
 
@@ -1637,6 +1597,7 @@
     }
 
     function showCopyNote(message = 'Email copied') {
+      if (!copyNote) return;
       copyNote.textContent = message;
       copyNote.classList.add('show');
       window.setTimeout(() => copyNote.classList.remove('show'), 1600);
@@ -1672,110 +1633,7 @@
       });
     }
 
-
-    /* More visible scroll-linked animation layer. This keeps normal scrolling native,
-       but adds soft parallax/depth so the page no longer feels like static slides. */
-    (() => {
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reduceMotion) return;
-
-      const animatedSections = Array.from(document.querySelectorAll('main section'));
-      const animatedItems = Array.from(document.querySelectorAll([
-        '.snapshot',
-        '.signal',
-        '.metric',
-        '.card',
-        '.proof-card',
-        '.role',
-        '.credential-card',
-        '.contact-panel',
-        '.contact-box'
-      ].join(',')));
-
-      animatedSections.forEach((section) => section.classList.add('section-motion'));
-      animatedItems.forEach((item, index) => {
-        item.classList.add('scroll-motion');
-        item.dataset.motionDirection = index % 2 === 0 ? '1' : '-1';
-      });
-
-      let targetScroll = window.scrollY || document.documentElement.scrollTop;
-      let smoothScroll = targetScroll;
-      let frame = null;
-
-      const clampLocal = (value, min, max) => Math.min(Math.max(value, min), max);
-
-      function paint() {
-        const viewport = window.innerHeight || 1;
-        const maxScroll = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const ratio = maxScroll > 0 ? smoothScroll / maxScroll : 0;
-
-        document.body.style.setProperty('--grid-y', `${smoothScroll * -0.026}px`);
-        if (progress) progress.style.transform = `scaleX(${clampLocal(ratio, 0, 1)})`;
-
-        animatedSections.forEach((section) => {
-          const container = section.querySelector(':scope > .container');
-          if (!container) return;
-          const rect = section.getBoundingClientRect();
-          const center = rect.top + rect.height / 2;
-          const distance = (center - viewport / 2) / viewport;
-          const abs = Math.min(Math.abs(distance), 1.2);
-
-          container.style.setProperty('--section-y', `${clampLocal(distance * -42, -54, 54).toFixed(2)}px`);
-          container.style.setProperty('--section-scale', `${(1 - abs * 0.026).toFixed(4)}`);
-          container.style.setProperty('--section-opacity', `${(1 - abs * 0.16).toFixed(3)}`);
-        });
-
-        animatedItems.forEach((item) => {
-          const rect = item.getBoundingClientRect();
-          if (rect.bottom < -180 || rect.top > viewport + 180) return;
-
-          const center = rect.top + rect.height / 2;
-          const distance = (center - viewport / 2) / viewport;
-          const abs = Math.min(Math.abs(distance), 1.35);
-          const direction = Number(item.dataset.motionDirection || 1);
-          const x = clampLocal(distance * direction * 20, -28, 28);
-          const y = clampLocal(distance * -34, -44, 44);
-          const rx = clampLocal(distance * 2.6, -3.2, 3.2);
-          const scale = 1 - abs * 0.022;
-          const opacity = 1 - abs * 0.26;
-
-          item.style.setProperty('--scroll-x', `${x.toFixed(2)}px`);
-          item.style.setProperty('--scroll-y', `${y.toFixed(2)}px`);
-          item.style.setProperty('--scroll-rx', `${rx.toFixed(3)}deg`);
-          item.style.setProperty('--scroll-scale', `${scale.toFixed(4)}`);
-          if (item.closest('#contact')) {
-            item.style.setProperty('--scroll-x', '0px');
-            item.style.setProperty('--scroll-y', '0px');
-            item.style.setProperty('--scroll-rx', '0deg');
-            item.style.setProperty('--scroll-scale', '1');
-            item.style.setProperty('--scroll-opacity', '1');
-          } else {
-            item.style.setProperty('--scroll-opacity', `${opacity.toFixed(3)}`);
-          }
-        });
-      }
-
-      function tick() {
-        smoothScroll += (targetScroll - smoothScroll) * 0.18;
-        paint();
-        if (Math.abs(targetScroll - smoothScroll) > 0.2) {
-          frame = window.requestAnimationFrame(tick);
-        } else {
-          smoothScroll = targetScroll;
-          paint();
-          frame = null;
-        }
-      }
-
-      function schedule() {
-        targetScroll = window.scrollY || document.documentElement.scrollTop;
-        if (!frame) frame = window.requestAnimationFrame(tick);
-      }
-
-      window.addEventListener('scroll', schedule, { passive: true });
-      window.addEventListener('resize', schedule, { passive: true });
-      schedule();
-    })();
+    scheduleAnimation();
   </script>
 </body>
 </html>
