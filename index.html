@@ -26,8 +26,9 @@
       --radius-lg: 26px;
       --radius-md: 18px;
       --max: 1160px;
-      --ease: cubic-bezier(.2,.8,.2,1);
-      --spring: cubic-bezier(.16, 1, .3, 1);
+      --ease: cubic-bezier(.22, 1, .36, 1);
+      --spring: cubic-bezier(.19, 1, .22, 1);
+      --silk: cubic-bezier(.25, .46, .45, .94);
       --shadow: 0 28px 90px rgba(0, 0, 0, .38);
       --font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
@@ -41,6 +42,7 @@
       line-height: 1.55;
       background: var(--bg);
       overflow-x: hidden;
+      overscroll-behavior-y: none;
       -webkit-font-smoothing: antialiased;
       text-rendering: geometricPrecision;
     }
@@ -70,7 +72,7 @@
         linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px);
       background-size: 64px 64px;
       mask-image: linear-gradient(to bottom, black, transparent 78%);
-      animation: gridDrift 34s linear infinite;
+      transform: translateZ(0);
     }
 
     @keyframes gridDrift {
@@ -105,18 +107,18 @@
       min-height: 420px;
       border-radius: 999px;
       filter: blur(42px);
-      opacity: .18;
+      opacity: .16;
       transform: translate3d(0,0,0);
-      will-change: transform, opacity, filter;
-      animation: orbBreath 16s ease-in-out infinite alternate;
+      will-change: transform, opacity;
+      animation: orbBreath 18s var(--silk) infinite alternate;
     }
 
     .orb.two { animation-duration: 19s; animation-delay: -3s; }
     .orb.three { animation-duration: 23s; animation-delay: -7s; }
 
     @keyframes orbBreath {
-      from { opacity: .13; filter: blur(46px); }
-      to { opacity: .22; filter: blur(56px); }
+      from { opacity: .12; }
+      to { opacity: .20; }
     }
 
     .orb.one { left: -20vw; top: 8vh; background: var(--cyan); }
@@ -128,18 +130,22 @@
       inset: 0;
       pointer-events: none;
       z-index: 1;
-      opacity: .28;
-      background: radial-gradient(500px circle at var(--x, 50%) var(--y, 40%), rgba(255,255,255,.09), transparent 42%);
-      transition: opacity 400ms var(--ease);
+      opacity: .24;
+      background: radial-gradient(520px circle at var(--x, 50%) var(--y, 40%), rgba(255,255,255,.08), transparent 44%);
+      transition: opacity 600ms var(--ease);
+      will-change: background;
     }
 
     .progress {
       position: fixed;
       top: 0;
       left: 0;
-      width: 0%;
+      width: 100%;
       height: 3px;
       z-index: 10000;
+      transform: scaleX(0);
+      transform-origin: left center;
+      will-change: transform;
       background: linear-gradient(90deg, var(--cyan), var(--blue), var(--purple));
       box-shadow: 0 0 24px rgba(111,255,233,.32);
     }
@@ -220,7 +226,7 @@
       border-radius: 999px;
       color: var(--muted);
       font-size: .92rem;
-      transition: color 260ms var(--ease), background 260ms var(--ease), transform 260ms var(--spring);
+      transition: color 420ms var(--ease), background 420ms var(--ease), transform 520ms var(--spring);
     }
 
     .nav-links a:hover,
@@ -341,7 +347,7 @@
       border-radius: 999px;
       cursor: pointer;
       font-weight: 850;
-      transition: transform 420ms var(--spring), box-shadow 420ms var(--spring), background 300ms var(--ease), border-color 300ms var(--ease);
+      transition: transform 620ms var(--spring), box-shadow 620ms var(--spring), background 520ms var(--ease), border-color 520ms var(--ease);
       will-change: transform;
     }
 
@@ -353,12 +359,12 @@
       opacity: 0;
       transform: translateX(-60%) skewX(-16deg);
       background: linear-gradient(110deg, transparent, rgba(255,255,255,.26), transparent);
-      transition: opacity 420ms var(--ease), transform 720ms var(--spring);
+      transition: opacity 560ms var(--ease), transform 960ms var(--spring);
     }
 
     .btn:hover::before { opacity: 1; transform: translateX(60%) skewX(-16deg); }
-    .btn:hover { transform: translateY(-3px) scale(1.01); }
-    .btn:active { transform: translateY(0) scale(.98); }
+    .btn:hover { transform: translateY(-2px) scale(1.008); }
+    .btn:active { transform: translateY(0) scale(.992); }
 
     .btn-primary {
       color: #031018;
@@ -417,7 +423,7 @@
       inset: 0;
       pointer-events: none;
       opacity: 0;
-      transition: opacity 350ms var(--ease);
+      transition: opacity 560ms var(--ease);
       background: radial-gradient(480px circle at var(--mx, 50%) var(--my, 0%), rgba(255,255,255,.18), transparent 42%);
     }
 
@@ -521,10 +527,10 @@
       min-height: 156px;
       border-radius: var(--radius-lg);
       padding: 20px;
-      transition: transform 500ms var(--spring), border-color 300ms var(--ease), background 300ms var(--ease);
+      transition: transform 720ms var(--spring), border-color 520ms var(--ease), background 520ms var(--ease);
     }
 
-    .metric:hover { transform: translateY(-6px); border-color: rgba(255,255,255,.26); }
+    .metric:hover { transform: translateY(-4px); border-color: rgba(255,255,255,.26); }
 
     .metric strong {
       display: block;
@@ -550,11 +556,11 @@
       min-height: 260px;
       border-radius: var(--radius-lg);
       padding: 22px;
-      transition: transform 520ms var(--spring), border-color 320ms var(--ease), background 320ms var(--ease);
+      transition: transform 760ms var(--spring), border-color 540ms var(--ease), background 540ms var(--ease);
     }
 
     .card:hover {
-      transform: translateY(-7px) scale(1.006);
+      transform: translateY(-5px) scale(1.004);
       border-color: rgba(255,255,255,.26);
       background: linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.065));
     }
@@ -643,10 +649,10 @@
       gap: 22px;
       border-radius: var(--radius-lg);
       padding: 22px;
-      transition: transform 500ms var(--spring), border-color 320ms var(--ease);
+      transition: transform 720ms var(--spring), border-color 540ms var(--ease);
     }
 
-    .role:hover { transform: translateY(-4px); border-color: rgba(255,255,255,.25); }
+    .role:hover { transform: translateY(-3px); border-color: rgba(255,255,255,.25); }
 
     .role-time {
       padding-right: 18px;
@@ -736,6 +742,14 @@
       border-radius: 20px;
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.055);
+      transition: transform 680ms var(--spring), background 520ms var(--ease), border-color 520ms var(--ease);
+      will-change: transform;
+    }
+
+    .contact-box:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,.22);
+      background: rgba(255,255,255,.08);
     }
 
     .contact-box small {
@@ -791,17 +805,15 @@
 
     .reveal {
       opacity: 0;
-      transform: translateY(24px) scale(.985);
-      filter: blur(10px);
-      transition: opacity 900ms var(--spring), transform 900ms var(--spring), filter 900ms var(--spring);
+      transform: translate3d(0, 18px, 0) scale(.992);
+      transition: opacity 1050ms var(--spring), transform 1050ms var(--spring);
       transition-delay: var(--delay, 0ms);
-      will-change: opacity, transform, filter;
+      will-change: opacity, transform;
     }
 
     .reveal.visible {
       opacity: 1;
-      transform: translateY(0) scale(1);
-      filter: blur(0);
+      transform: translate3d(0, 0, 0) scale(1);
     }
 
     .hero .reveal.visible .kicker { animation: softLift 760ms var(--spring) both; }
@@ -811,8 +823,8 @@
     .hero .reveal.visible .role-pills { animation: softLift 900ms var(--spring) 280ms both; }
 
     @keyframes softLift {
-      from { opacity: 0; transform: translateY(14px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translate3d(0, 12px, 0); }
+      to { opacity: 1; transform: translate3d(0, 0, 0); }
     }
 
     @media (max-width: 1060px) {
@@ -862,77 +874,27 @@
         transition-duration: .001ms !important;
       }
       .spotlight, .ambient { display: none; }
-      .reveal { opacity: 1; transform: none; filter: none; }
+      .reveal { opacity: 1; transform: none; }
     }
 
-    /* Final Apple-style motion pass: smooth, layered, and recruiter-safe */
-    :root {
-      --apple-ease: cubic-bezier(.22, 1, .36, 1);
-      --apple-spring: cubic-bezier(.18, .89, .32, 1.08);
-      --apple-soft: cubic-bezier(.16, 1, .3, 1);
-    }
 
-    html { scroll-behavior: auto; }
-    body { --grid-y: 0px; --progress: 0; }
-
+    /* Cinematic scroll-motion upgrade: stronger but smooth Apple-style depth */
     body::after {
-      animation: gridDrift 86s linear infinite;
-      transform: translate3d(0, var(--grid-y), 0);
+      animation: gridDrift 64s linear infinite;
+      transform: translate3d(0, var(--grid-y, 0px), 0);
       will-change: transform, background-position;
     }
 
-    .progress {
-      transform: scaleX(var(--progress));
-      transition: transform 90ms linear;
-    }
-
-    .nav,
-    .glass,
-    .btn,
-    .contact-box {
-      transform: translateZ(0);
-      backface-visibility: hidden;
-    }
-
-    .nav {
-      transition:
-        padding 680ms var(--apple-soft),
-        background 680ms var(--apple-ease),
-        border-color 680ms var(--apple-ease),
-        box-shadow 680ms var(--apple-ease);
-    }
-
-    body.scrolled .nav {
-      box-shadow: 0 18px 60px rgba(0, 0, 0, .22);
-    }
-
-    .nav-links,
-    .snapshot,
-    .metric,
-    .card,
-    .proof-card,
-    .role,
-    .credential-card,
-    .contact-panel,
-    .contact-box,
-    .signal {
-      will-change: transform, opacity;
-    }
-
-    section {
-      perspective: 1400px;
-      transform-style: preserve-3d;
-    }
+    section { perspective: 1300px; }
 
     .section-motion > .container {
-      transform:
-        translate3d(0, var(--section-y, 0px), 0)
-        scale(var(--section-scale, 1));
+      transform: translate3d(0, var(--section-y, 0px), 0) scale(var(--section-scale, 1));
       opacity: var(--section-opacity, 1);
       will-change: transform, opacity;
+      transition: transform 180ms linear, opacity 220ms var(--ease);
     }
 
-    .scroll-motion,
+    .scroll-motion:not(.reveal),
     .reveal.visible.scroll-motion {
       --scroll-x: 0px;
       --scroll-y: 0px;
@@ -942,114 +904,252 @@
       --hover-y: 0px;
       --hover-scale: 1;
       opacity: var(--scroll-opacity, 1) !important;
-      transform:
-        translate3d(var(--scroll-x), calc(var(--scroll-y) + var(--hover-y)), 0)
-        rotateX(var(--scroll-rx))
-        scale(calc(var(--scroll-scale) * var(--hover-scale))) !important;
+      transform: translate3d(var(--scroll-x), calc(var(--scroll-y) + var(--hover-y)), 0) rotateX(var(--scroll-rx)) scale(calc(var(--scroll-scale) * var(--hover-scale))) !important;
       transform-origin: center center;
-      transition:
-        border-color 620ms var(--apple-ease),
-        background 620ms var(--apple-ease),
-        box-shadow 620ms var(--apple-ease);
+      will-change: transform, opacity;
+      transition: transform 180ms linear, opacity 220ms var(--ease), border-color 520ms var(--ease), background 520ms var(--ease), box-shadow 520ms var(--ease);
+    }
+
+    .reveal:not(.visible).scroll-motion {
+      opacity: 0 !important;
+      transform: translate3d(var(--scroll-x, 0px), calc(26px + var(--scroll-y, 0px)), 0) scale(.985) !important;
     }
 
     .scroll-motion:hover {
-      --hover-y: -6px;
-      --hover-scale: 1.005;
+      --hover-y: -7px;
+      --hover-scale: 1.006;
     }
 
-    .metric:hover,
-    .card:hover,
-    .role:hover,
-    .contact-box:hover {
-      box-shadow: 0 32px 92px rgba(0, 0, 0, .34);
+    .proof-card.scroll-motion,
+    .signal.scroll-motion {
+      transition: transform 180ms linear, opacity 220ms var(--ease), background 520ms var(--ease), border-color 520ms var(--ease);
     }
 
-    .reveal {
-      opacity: 0;
-      transform: translate3d(0, 22px, 0) scale(.988);
-      filter: blur(3px);
-      transition:
-        opacity 860ms var(--apple-ease),
-        transform 980ms var(--apple-soft),
-        filter 980ms var(--apple-ease);
-      transition-delay: var(--delay, 0ms);
-      will-change: opacity, transform, filter;
+
+
+    /* Readability lock: keep contact and internal card text crisp during motion */
+    :root {
+      --muted: rgba(247, 251, 255, 0.86);
+      --muted-2: rgba(247, 251, 255, 0.76);
     }
 
-    .reveal.visible {
-      opacity: 1;
-      transform: translate3d(0, 0, 0) scale(1);
-      filter: blur(0);
+    .hero-text,
+    .section-copy,
+    .metric span,
+    .card p,
+    .proof-card p,
+    .role p,
+    .signal span,
+    .contact-panel p,
+    .snapshot h2,
+    .contact-box small,
+    .contact-box a,
+    .contact-box button {
+      opacity: 1 !important;
+      filter: none !important;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: geometricPrecision;
     }
 
-    .section-head.reveal.visible .label,
-    .section-head.reveal.visible .section-title,
-    .section-head.reveal.visible .section-copy {
-      animation: textRise 780ms var(--apple-soft) both;
+    .hero-text,
+    .section-copy,
+    .metric span,
+    .card p,
+    .proof-card p,
+    .role p,
+    .signal span,
+    .contact-panel p {
+      color: rgba(247, 251, 255, 0.88) !important;
     }
 
-    .section-head.reveal.visible .section-title { animation-delay: 70ms; }
-    .section-head.reveal.visible .section-copy { animation-delay: 140ms; }
-
-    @keyframes textRise {
-      from { opacity: 0; transform: translate3d(0, 14px, 0); }
-      to { opacity: 1; transform: translate3d(0, 0, 0); }
+    .contact-box small {
+      color: rgba(247, 251, 255, 0.82) !important;
+      letter-spacing: .16em;
     }
 
-    .btn {
-      transition:
-        transform 700ms var(--apple-soft),
-        box-shadow 700ms var(--apple-ease),
-        background 620ms var(--apple-ease),
-        border-color 620ms var(--apple-ease);
+    .contact-box a,
+    .contact-box button {
+      color: #ffffff !important;
+      font-weight: 900 !important;
+      text-shadow: 0 0 18px rgba(255, 255, 255, 0.10);
     }
 
-    .btn:hover { transform: translateY(-3px) scale(1.012); }
-    .btn:active { transform: translateY(0) scale(.985); }
-
-    .pill {
-      transition:
-        color 460ms var(--apple-ease),
-        background 460ms var(--apple-ease),
-        border-color 460ms var(--apple-ease),
-        transform 620ms var(--apple-soft);
+    .contact-box,
+    .contact-panel,
+    #contact .container,
+    #contact .reveal,
+    #contact .scroll-motion,
+    #contact .reveal.visible.scroll-motion {
+      opacity: 1 !important;
+      filter: none !important;
     }
 
-    .pill:hover {
-      border-color: rgba(255,255,255,.20);
-      transform: translateY(-2px);
-    }
-
-    .copy-note {
-      transition:
-        opacity 520ms var(--apple-ease),
-        transform 620ms var(--apple-soft);
+    /* The contact card contains critical info, so do not rotate/scale it while scrolling. */
+    #contact .container,
+    #contact .contact-panel.scroll-motion,
+    #contact .contact-box.scroll-motion {
+      transform: translate3d(0, 0, 0) !important;
     }
 
     @media (max-width: 760px) {
-      .section-motion > .container {
-        transform: translate3d(0, calc(var(--section-y, 0px) * .35), 0) scale(1);
+      .contact-box small {
+        color: rgba(247, 251, 255, 0.88) !important;
       }
 
-      .scroll-motion,
-      .reveal.visible.scroll-motion {
-        transform:
-          translate3d(0, calc(var(--scroll-y, 0px) * .55 + var(--hover-y)), 0)
-          scale(calc(1 * var(--hover-scale))) !important;
+      .contact-box a,
+      .contact-box button {
+        color: #ffffff !important;
+        font-weight: 950 !important;
+      }
+
+      #contact .container,
+      #contact .contact-panel,
+      #contact .contact-box,
+      #contact .scroll-motion {
+        transform: none !important;
+        opacity: 1 !important;
+        filter: none !important;
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      body::after { animation: none !important; transform: none !important; }
+
+    /* FINAL CRISP TEXT PASS: keep Apple polish, but remove text-softening transforms from content */
+    :root {
+      --muted: rgba(255, 255, 255, 0.91);
+      --muted-2: rgba(255, 255, 255, 0.80);
+    }
+
+    main,
+    section,
+    .container,
+    .section-head,
+    .glass,
+    .snapshot,
+    .signal,
+    .metric,
+    .card,
+    .proof-card,
+    .role,
+    .credential-card,
+    .contact-panel,
+    .contact-box {
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      filter: none !important;
+    }
+
+    /* Do not scale/rotate/fade text-bearing blocks while scrolling. This prevents the soft/blurred look. */
+    .section-motion > .container,
+    .scroll-motion,
+    .reveal.visible.scroll-motion,
+    .glass,
+    .snapshot,
+    .signal,
+    .metric,
+    .card,
+    .proof-card,
+    .role,
+    .credential-card,
+    .contact-panel,
+    .contact-box {
+      opacity: 1 !important;
+      transform: none !important;
+      will-change: auto !important;
+      backface-visibility: visible !important;
+    }
+
+    .reveal.visible {
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+      will-change: auto !important;
+    }
+
+    .hero-text,
+    .section-copy,
+    .metric span,
+    .card p,
+    .proof-card p,
+    .role p,
+    .signal span,
+    .contact-panel p,
+    footer {
+      color: rgba(255, 255, 255, 0.92) !important;
+      opacity: 1 !important;
+      filter: none !important;
+      text-shadow: none !important;
+    }
+
+    .brand,
+    .kicker,
+    .section-title,
+    .snapshot h2,
+    .signal strong,
+    .metric strong,
+    .card h3,
+    .proof-card h3,
+    .role h3,
+    .credential-card h3,
+    .contact-panel h2,
+    .contact-box a,
+    .contact-box button {
+      color: #ffffff !important;
+      opacity: 1 !important;
+      filter: none !important;
+      text-shadow: none !important;
+    }
+
+    .label,
+    .date,
+    .proof-card small,
+    .contact-box small {
+      opacity: 1 !important;
+      filter: none !important;
+      text-shadow: none !important;
+    }
+
+    .chip,
+    .pill,
+    .tag,
+    .credential-list span {
+      color: rgba(255, 255, 255, 0.88) !important;
+      opacity: 1 !important;
+      filter: none !important;
+    }
+
+    /* Keep interaction polished without moving text itself. */
+    .metric:hover,
+    .card:hover,
+    .role:hover,
+    .contact-box:hover,
+    .scroll-motion:hover {
+      transform: none !important;
+      border-color: rgba(255,255,255,.26) !important;
+      background: linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.065));
+      box-shadow: 0 28px 82px rgba(0, 0, 0, .34);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px) scale(1.006) !important;
+    }
+
+    @media (max-width: 760px) {
       .section-motion > .container,
       .scroll-motion,
-      .reveal,
-      .reveal.visible.scroll-motion {
-        opacity: 1 !important;
+      .reveal.visible.scroll-motion,
+      .glass,
+      .snapshot,
+      .signal,
+      .metric,
+      .card,
+      .proof-card,
+      .role,
+      .credential-card,
+      .contact-panel,
+      .contact-box {
         transform: none !important;
+        opacity: 1 !important;
         filter: none !important;
-        transition: none !important;
       }
     }
 
@@ -1341,175 +1441,89 @@
   <div class="copy-note" id="copyNote" role="status" aria-live="polite">Email copied</div>
 
   <script>
-
     const progress = document.getElementById('progress');
     const spotlight = document.querySelector('.spotlight');
     const menuBtn = document.getElementById('menuBtn');
     const navLinks = document.getElementById('navLinks');
     const copyEmail = document.getElementById('copyEmail');
     const copyNote = document.getElementById('copyNote');
-    const glassCards = Array.from(document.querySelectorAll('.glass'));
-    const orbs = Array.from(document.querySelectorAll('.orb'));
-    const navAnchors = Array.from(document.querySelectorAll('.nav-links a'));
+    const glassCards = document.querySelectorAll('.glass');
+    const orbs = document.querySelectorAll('.orb');
+    const sections = document.querySelectorAll('main section[id]');
+    const anchors = document.querySelectorAll('.nav-links a');
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    const sections = Array.from(document.querySelectorAll('main section'));
-    const anchorSections = Array.from(document.querySelectorAll('main section[id]'));
-    const motionItems = Array.from(document.querySelectorAll([
-      '.snapshot',
-      '.signal',
-      '.metric',
-      '.card',
-      '.proof-card',
-      '.role',
-      '.credential-card',
-      '.contact-panel',
-      '.contact-box'
-    ].join(',')));
-
-    sections.forEach((section) => section.classList.add('section-motion'));
-
-    motionItems.forEach((item, index) => {
-      item.classList.add('scroll-motion');
-      item.dataset.motionDirection = index % 2 === 0 ? '1' : '-1';
-      item.dataset.motionDepth = item.classList.contains('signal') || item.classList.contains('contact-box') ? '0.55' : '1';
-    });
-
-    const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
-    const lerp = (start, end, amount) => start + (end - start) * amount;
 
     let targetX = window.innerWidth / 2;
     let targetY = window.innerHeight / 2;
     let currentX = targetX;
     let currentY = targetY;
-    let targetScroll = window.scrollY || document.documentElement.scrollTop;
-    let smoothScroll = targetScroll;
-    let frame = null;
-    let lastViewportHeight = window.innerHeight || 1;
+    let scrollTop = window.scrollY || document.documentElement.scrollTop;
+    let ticking = false;
 
-    function setMotionVariable(element, name, value) {
-      element.style.setProperty(name, value);
+    function updateVisuals() {
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const ratio = height > 0 ? scrollTop / height : 0;
+      progress.style.transform = `scaleX(${Math.min(Math.max(ratio, 0), 1)})`;
+      document.body.classList.toggle('scrolled', scrollTop > 12);
+
+      const drift = Math.min(scrollTop, 900);
+      if (orbs[0]) orbs[0].style.transform = `translate3d(${drift * .014}px, ${drift * -.026}px, 0)`;
+      if (orbs[1]) orbs[1].style.transform = `translate3d(${drift * -.018}px, ${drift * .019}px, 0)`;
+      if (orbs[2]) orbs[2].style.transform = `translate3d(${drift * .010}px, ${drift * -.014}px, 0)`;
+
+      ticking = false;
     }
 
-    function paint() {
-      const viewport = window.innerHeight || 1;
-      const maxScroll = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const actualScroll = window.scrollY || document.documentElement.scrollTop;
-      targetScroll = actualScroll;
-      smoothScroll = lerp(smoothScroll, targetScroll, 0.16);
+    function requestVisualUpdate() {
+      scrollTop = window.scrollY || document.documentElement.scrollTop;
+      if (!ticking) {
+        window.requestAnimationFrame(updateVisuals);
+        ticking = true;
+      }
+    }
 
-      const ratio = maxScroll > 0 ? targetScroll / maxScroll : 0;
-      document.body.style.setProperty('--progress', clamp(ratio, 0, 1).toFixed(4));
-      document.body.classList.toggle('scrolled', targetScroll > 14);
-      document.body.style.setProperty('--grid-y', `${(smoothScroll * -0.018).toFixed(2)}px`);
-
-      const drift = Math.min(smoothScroll, 1400);
-      if (orbs[0]) orbs[0].style.transform = `translate3d(${(drift * .018).toFixed(2)}px, ${(drift * -.032).toFixed(2)}px, 0) scale(${(1 + ratio * .022).toFixed(4)})`;
-      if (orbs[1]) orbs[1].style.transform = `translate3d(${(drift * -.024).toFixed(2)}px, ${(drift * .026).toFixed(2)}px, 0) scale(${(1 + ratio * .018).toFixed(4)})`;
-      if (orbs[2]) orbs[2].style.transform = `translate3d(${(drift * .014).toFixed(2)}px, ${(drift * -.020).toFixed(2)}px, 0) scale(${(1 + ratio * .020).toFixed(4)})`;
-
+    function animateSpotlight() {
       if (!prefersReducedMotion && spotlight) {
-        currentX = lerp(currentX, targetX, 0.085);
-        currentY = lerp(currentY, targetY, 0.085);
-        spotlight.style.setProperty('--x', `${currentX.toFixed(1)}px`);
-        spotlight.style.setProperty('--y', `${currentY.toFixed(1)}px`);
-      }
-
-      if (!prefersReducedMotion) {
-        sections.forEach((section) => {
-          const container = section.querySelector(':scope > .container');
-          if (!container) return;
-
-          const rect = section.getBoundingClientRect();
-          const center = rect.top + rect.height / 2;
-          const distance = (center - viewport / 2) / viewport;
-          const abs = Math.min(Math.abs(distance), 1.25);
-
-          setMotionVariable(container, '--section-y', `${clamp(distance * -26, -36, 36).toFixed(2)}px`);
-          setMotionVariable(container, '--section-scale', `${(1 - abs * 0.012).toFixed(4)}`);
-          setMotionVariable(container, '--section-opacity', `${clamp(1 - abs * 0.08, 0.88, 1).toFixed(3)}`);
-        });
-
-        motionItems.forEach((item) => {
-          const rect = item.getBoundingClientRect();
-          if (rect.bottom < -220 || rect.top > viewport + 220) return;
-
-          const center = rect.top + rect.height / 2;
-          const distance = (center - viewport / 2) / viewport;
-          const abs = Math.min(Math.abs(distance), 1.35);
-          const direction = Number(item.dataset.motionDirection || 1);
-          const depth = Number(item.dataset.motionDepth || 1);
-
-          const x = clamp(distance * direction * 9 * depth, -16, 16);
-          const y = clamp(distance * -32 * depth, -40, 40);
-          const rx = clamp(distance * 1.25 * depth, -1.8, 1.8);
-          const scale = 1 - abs * 0.012 * depth;
-          const opacity = clamp(1 - abs * 0.14 * depth, 0.78, 1);
-
-          setMotionVariable(item, '--scroll-x', `${x.toFixed(2)}px`);
-          setMotionVariable(item, '--scroll-y', `${y.toFixed(2)}px`);
-          setMotionVariable(item, '--scroll-rx', `${rx.toFixed(3)}deg`);
-          setMotionVariable(item, '--scroll-scale', `${scale.toFixed(4)}`);
-          setMotionVariable(item, '--scroll-opacity', `${opacity.toFixed(3)}`);
-        });
-      }
-
-      const scrollSettled = Math.abs(targetScroll - smoothScroll) < 0.08;
-      const pointerSettled = Math.abs(targetX - currentX) < 0.25 && Math.abs(targetY - currentY) < 0.25;
-      const viewportSettled = Math.abs(lastViewportHeight - viewport) < 0.5;
-      lastViewportHeight = viewport;
-
-      if (!scrollSettled || !pointerSettled || !viewportSettled) {
-        frame = window.requestAnimationFrame(paint);
-      } else {
-        smoothScroll = targetScroll;
-        frame = null;
+        currentX += (targetX - currentX) * 0.075;
+        currentY += (targetY - currentY) * 0.075;
+        spotlight.style.setProperty('--x', currentX + 'px');
+        spotlight.style.setProperty('--y', currentY + 'px');
+        window.requestAnimationFrame(animateSpotlight);
       }
     }
 
-    function startMotion() {
-      if (!frame) frame = window.requestAnimationFrame(paint);
-    }
-
-    window.addEventListener('scroll', startMotion, { passive: true });
-    window.addEventListener('resize', startMotion, { passive: true });
     window.addEventListener('pointermove', (event) => {
       targetX = event.clientX;
       targetY = event.clientY;
-      startMotion();
     }, { passive: true });
+
+    window.addEventListener('scroll', requestVisualUpdate, { passive: true });
+    window.addEventListener('resize', requestVisualUpdate, { passive: true });
+    requestVisualUpdate();
+    animateSpotlight();
 
     glassCards.forEach((card) => {
       let cardFrame = null;
-      let currentMX = 50;
-      let currentMY = 0;
-      let nextMX = 50;
-      let nextMY = 0;
-
-      function moveGlow() {
-        currentMX = lerp(currentMX, nextMX, 0.16);
-        currentMY = lerp(currentMY, nextMY, 0.16);
-        card.style.setProperty('--mx', `${currentMX.toFixed(2)}%`);
-        card.style.setProperty('--my', `${currentMY.toFixed(2)}%`);
-
-        if (Math.abs(nextMX - currentMX) > .08 || Math.abs(nextMY - currentMY) > .08) {
-          cardFrame = window.requestAnimationFrame(moveGlow);
-        } else {
-          cardFrame = null;
-        }
-      }
+      let nextX = 50;
+      let nextY = 0;
 
       card.addEventListener('pointermove', (event) => {
         const rect = card.getBoundingClientRect();
-        nextMX = ((event.clientX - rect.left) / rect.width) * 100;
-        nextMY = ((event.clientY - rect.top) / rect.height) * 100;
-        if (!cardFrame) cardFrame = window.requestAnimationFrame(moveGlow);
+        nextX = ((event.clientX - rect.left) / rect.width) * 100;
+        nextY = ((event.clientY - rect.top) / rect.height) * 100;
+
+        if (!cardFrame) {
+          cardFrame = window.requestAnimationFrame(() => {
+            card.style.setProperty('--mx', nextX + '%');
+            card.style.setProperty('--my', nextY + '%');
+            cardFrame = null;
+          });
+        }
       }, { passive: true });
 
       card.addEventListener('pointerleave', () => {
-        nextMX = 50;
-        nextMY = 0;
-        if (!cardFrame) cardFrame = window.requestAnimationFrame(moveGlow);
+        card.style.setProperty('--mx', '50%');
+        card.style.setProperty('--my', '0%');
       }, { passive: true });
     });
 
@@ -1517,30 +1531,29 @@
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.14, rootMargin: '0px 0px -42px 0px' });
+    }, { threshold: 0.12, rootMargin: '0px 0px -46px 0px' });
 
     document.querySelectorAll('.reveal').forEach((item, index) => {
       if (!item.style.getPropertyValue('--delay')) {
-        item.style.setProperty('--delay', `${Math.min((index % 7) * 42, 210)}ms`);
+        item.style.setProperty('--delay', `${Math.min((index % 6) * 55, 220)}ms`);
       }
       revealObserver.observe(item);
     });
 
     const sectionObserver = new IntersectionObserver((entries) => {
-      const visible = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-      if (!visible) return;
-      const id = visible.target.getAttribute('id');
-      navAnchors.forEach((anchor) => {
-        anchor.classList.toggle('active', anchor.getAttribute('href') === '#' + id);
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const id = entry.target.getAttribute('id');
+        anchors.forEach((anchor) => {
+          anchor.classList.toggle('active', anchor.getAttribute('href') === '#' + id);
+        });
       });
-    }, { threshold: [0.25, 0.42, 0.62] });
+    }, { threshold: 0.44 });
 
-    anchorSections.forEach((section) => sectionObserver.observe(section));
+    sections.forEach((section) => sectionObserver.observe(section));
 
     if (menuBtn && navLinks) {
       menuBtn.addEventListener('click', () => {
@@ -1550,20 +1563,19 @@
       });
     }
 
-    navAnchors.forEach((anchor) => {
+    anchors.forEach((anchor) => {
       anchor.addEventListener('click', () => {
-        if (!navLinks || !menuBtn) return;
         navLinks.classList.remove('open');
         menuBtn.setAttribute('aria-expanded', 'false');
         menuBtn.textContent = '☰';
       });
     });
 
-    function easeOutQuint(t) {
-      return 1 - Math.pow(1 - t, 5);
+    function easeOutQuart(t) {
+      return 1 - Math.pow(1 - t, 4);
     }
 
-    function butteryScrollTo(targetY, duration = 980) {
+    function butteryScrollTo(targetY, duration = 900) {
       if (prefersReducedMotion) {
         window.scrollTo(0, targetY);
         return;
@@ -1576,8 +1588,9 @@
       function step(now) {
         const elapsed = now - start;
         const progressValue = Math.min(elapsed / duration, 1);
-        const eased = easeOutQuint(progressValue);
+        const eased = easeOutQuart(progressValue);
         window.scrollTo(0, startY + distance * eased);
+
         if (progressValue < 1) window.requestAnimationFrame(step);
       }
 
@@ -1615,7 +1628,6 @@
     }
 
     function showCopyNote(message = 'Email copied') {
-      if (!copyNote) return;
       copyNote.textContent = message;
       copyNote.classList.add('show');
       window.setTimeout(() => copyNote.classList.remove('show'), 1600);
@@ -1651,7 +1663,110 @@
       });
     }
 
-    startMotion();
+
+    /* More visible scroll-linked animation layer. This keeps normal scrolling native,
+       but adds soft parallax/depth so the page no longer feels like static slides. */
+    (() => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion) return;
+
+      const animatedSections = Array.from(document.querySelectorAll('main section'));
+      const animatedItems = Array.from(document.querySelectorAll([
+        '.snapshot',
+        '.signal',
+        '.metric',
+        '.card',
+        '.proof-card',
+        '.role',
+        '.credential-card',
+        '.contact-panel',
+        '.contact-box'
+      ].join(',')));
+
+      animatedSections.forEach((section) => section.classList.add('section-motion'));
+      animatedItems.forEach((item, index) => {
+        item.classList.add('scroll-motion');
+        item.dataset.motionDirection = index % 2 === 0 ? '1' : '-1';
+      });
+
+      let targetScroll = window.scrollY || document.documentElement.scrollTop;
+      let smoothScroll = targetScroll;
+      let frame = null;
+
+      const clampLocal = (value, min, max) => Math.min(Math.max(value, min), max);
+
+      function paint() {
+        const viewport = window.innerHeight || 1;
+        const maxScroll = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const ratio = maxScroll > 0 ? smoothScroll / maxScroll : 0;
+
+        document.body.style.setProperty('--grid-y', `${smoothScroll * -0.026}px`);
+        if (progress) progress.style.transform = `scaleX(${clampLocal(ratio, 0, 1)})`;
+
+        animatedSections.forEach((section) => {
+          const container = section.querySelector(':scope > .container');
+          if (!container) return;
+          const rect = section.getBoundingClientRect();
+          const center = rect.top + rect.height / 2;
+          const distance = (center - viewport / 2) / viewport;
+          const abs = Math.min(Math.abs(distance), 1.2);
+
+          container.style.setProperty('--section-y', `${clampLocal(distance * -42, -54, 54).toFixed(2)}px`);
+          container.style.setProperty('--section-scale', `${(1 - abs * 0.026).toFixed(4)}`);
+          container.style.setProperty('--section-opacity', `${(1 - abs * 0.16).toFixed(3)}`);
+        });
+
+        animatedItems.forEach((item) => {
+          const rect = item.getBoundingClientRect();
+          if (rect.bottom < -180 || rect.top > viewport + 180) return;
+
+          const center = rect.top + rect.height / 2;
+          const distance = (center - viewport / 2) / viewport;
+          const abs = Math.min(Math.abs(distance), 1.35);
+          const direction = Number(item.dataset.motionDirection || 1);
+          const x = clampLocal(distance * direction * 20, -28, 28);
+          const y = clampLocal(distance * -34, -44, 44);
+          const rx = clampLocal(distance * 2.6, -3.2, 3.2);
+          const scale = 1 - abs * 0.022;
+          const opacity = 1 - abs * 0.26;
+
+          item.style.setProperty('--scroll-x', `${x.toFixed(2)}px`);
+          item.style.setProperty('--scroll-y', `${y.toFixed(2)}px`);
+          item.style.setProperty('--scroll-rx', `${rx.toFixed(3)}deg`);
+          item.style.setProperty('--scroll-scale', `${scale.toFixed(4)}`);
+          if (item.closest('#contact')) {
+            item.style.setProperty('--scroll-x', '0px');
+            item.style.setProperty('--scroll-y', '0px');
+            item.style.setProperty('--scroll-rx', '0deg');
+            item.style.setProperty('--scroll-scale', '1');
+            item.style.setProperty('--scroll-opacity', '1');
+          } else {
+            item.style.setProperty('--scroll-opacity', `${opacity.toFixed(3)}`);
+          }
+        });
+      }
+
+      function tick() {
+        smoothScroll += (targetScroll - smoothScroll) * 0.18;
+        paint();
+        if (Math.abs(targetScroll - smoothScroll) > 0.2) {
+          frame = window.requestAnimationFrame(tick);
+        } else {
+          smoothScroll = targetScroll;
+          paint();
+          frame = null;
+        }
+      }
+
+      function schedule() {
+        targetScroll = window.scrollY || document.documentElement.scrollTop;
+        if (!frame) frame = window.requestAnimationFrame(tick);
+      }
+
+      window.addEventListener('scroll', schedule, { passive: true });
+      window.addEventListener('resize', schedule, { passive: true });
+      schedule();
+    })();
   </script>
 </body>
 </html>
